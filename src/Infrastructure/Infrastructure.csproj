@@ -9,8 +9,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="IoC\" />
-    <Folder Include="Persistance\" />
+    <Folder Include="Persistance\Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.3.0" />
   </ItemGroup>
 
 </Project>
