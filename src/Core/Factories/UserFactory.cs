@@ -8,12 +8,11 @@ namespace Core.Factories
     {
         public User CreateInstance()
         {
-            switch (switch_on)
+            switch ("x")
             {
-                case():
-                    return new();
                 default:
-                    throw new Exception("Invalid type of role");
+                    return new();
+                    break;
             }
         }
     }
