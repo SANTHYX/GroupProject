@@ -12,7 +12,6 @@ namespace Core.Factories
             {
                 default:
                     return new();
-                    break;
             }
         }
     }

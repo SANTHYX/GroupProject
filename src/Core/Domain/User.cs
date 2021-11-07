@@ -1,6 +1,8 @@
-﻿namespace Core.Domain
+﻿using Core.Types;
+
+namespace Core.Domain
 {
-    public class User
+    public class User : Entity
     {
     }
 }
