@@ -1,9 +1,13 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Web
+namespace Api
 {
     public class Program
     {
@@ -17,6 +21,6 @@ namespace Web
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                }).UseServiceProviderFactory(new AutofacServiceProviderFactory());
+                });
     }
 }

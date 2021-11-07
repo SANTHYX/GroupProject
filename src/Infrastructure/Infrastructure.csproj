@@ -9,11 +9,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="IoC\" />
+    <Folder Include="Externals\" />
+    <Folder Include="Options\" />
     <Folder Include="Persistance\Repositories\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.3.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
   </ItemGroup>
 
 </Project>
