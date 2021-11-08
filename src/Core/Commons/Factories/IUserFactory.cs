@@ -4,6 +4,6 @@ namespace Core.Commons.Factories
 {
     public interface IUserFactory : IFactory
     {
-        User CreateInstance();
+        User CreateInstance(string nickName, string login, string email, string password);
     }
 }

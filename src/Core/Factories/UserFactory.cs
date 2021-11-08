@@ -6,12 +6,12 @@ namespace Core.Factories
 {
     public class UserFactory : IUserFactory
     {
-        public User CreateInstance()
+        public User CreateInstance(string nickName, string login, string email, string password)
         {
             switch ("x")
             {
                 default:
-                    return new();
+                    return new(nickName, login, email, password);
             }
         }
     }

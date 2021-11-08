@@ -19,8 +19,10 @@ namespace Application.Identity.Commands.RegisterUser
 
         public async Task HandleAsync(RegisterUser command)
         {
-            await _unit.User.AddAsync();
+            var user = _factory.CreateInstance(command.NickName,command.Login,command.Email,command.Password);
+            await _unit.User.AddAsync(user);
             await _unit.CommitAsync();
         }
+
     }
 }
