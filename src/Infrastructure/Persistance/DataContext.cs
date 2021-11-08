@@ -1,6 +1,15 @@
-﻿namespace Infrastructure.Persistance
+﻿using Core.Domain;
+using Microsoft.EntityFrameworkCore;
+
+namespace Infrastructure.Persistance
 {
-    public class DataContext
+    public class DataContext : DbContext
     {
+        public DbSet<User> Users { get; set; }
+
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        {
+
+        }
     }
 }
