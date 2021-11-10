@@ -9,9 +9,12 @@ namespace Infrastructure.Extension
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<DataContext>(x => x.UseNpgsql(configuration.GetConnectionString("MovieDbConnection")));
-
-            
+            services.AddDbContext<DataContext>(x => 
+            {
+                x.UseNpgsql(configuration.GetConnectionString("MovieDbConnection"),
+                    opt => opt.MigrationsAssembly("Infrastructure"));
+                x.EnableDetailedErrors();
+            });
         }
     }
 }
