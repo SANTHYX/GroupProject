@@ -1,7 +1,6 @@
 ﻿using Application.Commons.CQRS.Command;
 using Application.Commons.Persistance;
 using Core.Commons.Factories;
-using System;
 using System.Threading.Tasks;
 
 namespace Application.Identity.Commands.RegisterUser
@@ -20,7 +19,11 @@ namespace Application.Identity.Commands.RegisterUser
         public async Task HandleAsync(RegisterUser command)
         {
             var user = _factory.CreateInstance(
-                command.NickName, command.Login, command.Email, command.Password);
+                command.NickName,
+                command.Login,
+                command.Email,
+                command.Password);
+
             await _unit.User.AddAsync(user);
             await _unit.CommitAsync();
         }
