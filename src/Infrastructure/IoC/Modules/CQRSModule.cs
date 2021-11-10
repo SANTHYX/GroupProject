@@ -1,5 +1,6 @@
 ﻿using Application.Commons.CQRS.Command;
 using Autofac;
+using Infrastructure.CQRS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,8 @@ namespace Infrastructure.IoC.Modules
         {
             var asembly = typeof(CQRSModule).GetTypeInfo().Assembly;
             //first use of autofac be proud young padavane
-            builder.RegisterAssemblyTypes(asembly).AsClosedTypesOf(typeof(ICommandDispatcher)).InstancePerLifetimeScope();
+          
+            builder.RegisterType<CommandDispatcher>().As<ICommandDispatcher>().InstancePerLifetimeScope();
 
         }
     }
