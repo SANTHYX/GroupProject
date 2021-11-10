@@ -9,6 +9,7 @@ namespace Infrastructure.IoC
         {
             builder.RegisterModule<RepositoriesModule>();
             builder.RegisterModule<FactoriesModule>();
+            builder.RegisterModule<CQRSModule>();
         }
     }
 }
