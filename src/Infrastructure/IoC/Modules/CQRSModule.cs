@@ -1,12 +1,8 @@
 ﻿using Application.Commons.CQRS.Command;
+using Application.Commons.CQRS.Query;
 using Autofac;
 using Infrastructure.CQRS;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.IoC.Modules
 {
@@ -15,10 +11,24 @@ namespace Infrastructure.IoC.Modules
         protected override void Load(ContainerBuilder builder)
         {
             var asembly = typeof(CQRSModule).GetTypeInfo().Assembly;
-            //first use of autofac be proud young padavane
-          
-            builder.RegisterType<CommandDispatcher>().As<ICommandDispatcher>().InstancePerLifetimeScope();
+            
+            builder.RegisterAssemblyTypes(asembly)
+                .AsClosedTypesOf(typeof(ICommandHandler<>))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
 
+            builder.RegisterAssemblyTypes(asembly)
+                .AsClosedTypesOf(typeof(IQueryHandler<,>))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<CommandDispatcher>()
+                .As<ICommandDispatcher>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<QueryDispatcher>()
+                .As<IQueryDispatcher>()
+                .InstancePerLifetimeScope();
         }
     }
 }
