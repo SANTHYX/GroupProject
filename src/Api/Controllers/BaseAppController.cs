@@ -1,6 +1,7 @@
 ﻿using Application.Commons.CQRS.Command;
 using Application.Commons.CQRS.Query;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace Api.Controllers
@@ -11,6 +12,9 @@ namespace Api.Controllers
     {
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly IQueryDispatcher _queryDispatcher;
+        private Guid UserId => User.Identity.IsAuthenticated == true 
+            ? Guid.Parse(User.Identity.Name) 
+            : Guid.Empty;
 
         public BaseAppController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher)
         {
@@ -20,6 +24,10 @@ namespace Api.Controllers
 
         protected async Task DispatchAsync<T>(T command) where T : ICommand
         {
+            if (true)
+            {
+
+            }
             await _commandDispatcher.DispatchAsync(command);
         }
 

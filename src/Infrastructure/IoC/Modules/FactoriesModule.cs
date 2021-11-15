@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Core.Commons.Factories;
+using Core.Factories;
 using System.Reflection;
 
 namespace Infrastructure.IoC.Modules
@@ -8,7 +9,7 @@ namespace Infrastructure.IoC.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            var assembly = typeof(FactoriesModule).GetTypeInfo().Assembly;
+            var assembly = typeof(IFactory).GetTypeInfo().Assembly;
 
             builder.RegisterAssemblyTypes(assembly)
                 .Where(x => x.IsAssignableTo<IFactory>())
