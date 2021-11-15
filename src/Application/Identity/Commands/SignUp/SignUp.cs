@@ -2,7 +2,7 @@
 
 namespace Application.Identity.Commands.RegisterUser
 {
-    public record RegisterUser : ICommand
+    public record SignUp : ICommand
     {
         public string NickName { get; set; }
         public string Login { get; set; }
