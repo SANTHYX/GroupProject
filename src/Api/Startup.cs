@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Infrastructure.Extension;
+using Application;
 
 namespace Api
 {
@@ -32,6 +33,7 @@ namespace Api
         public void ConfigureContainer(ContainerBuilder builder)
         {
             builder.RegisterModule<InfrastructureIoC>();
+            builder.RegisterModule<AppliactionIoC>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

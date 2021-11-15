@@ -1,5 +1,7 @@
-﻿using Autofac;
+﻿using Application.Commons.Persistance;
+using Autofac;
 using Core.Commons.Repositories;
+using Infrastructure.Persistance;
 using System.Reflection;
 
 namespace Infrastructure.IoC.Modules
@@ -13,6 +15,10 @@ namespace Infrastructure.IoC.Modules
             builder.RegisterAssemblyTypes(assembly)
                 .Where(x => x.IsAssignableTo<IRepository>())
                 .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<UnitOfWork>()
+                .As<IUnitOfWork>()
                 .InstancePerLifetimeScope();
         }
     }
