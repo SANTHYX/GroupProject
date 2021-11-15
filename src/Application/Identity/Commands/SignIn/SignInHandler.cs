@@ -4,16 +4,16 @@ using System.Threading.Tasks;
 
 namespace Application.Identity.Commands.LoginUser
 {
-    public class LoginUserHandler : ICommandHandler<LoginUser>
+    public class SignInHandler : ICommandHandler<SignIn>
     {
         private readonly IUnitOfWork _unit;
 
-        public LoginUserHandler(IUnitOfWork unit)
+        public SignInHandler(IUnitOfWork unit)
         {
             _unit = unit;
         }
 
-        public async Task HandleAsync(LoginUser command)
+        public async Task HandleAsync(SignIn command)
         {
             throw new System.NotImplementedException();
         }

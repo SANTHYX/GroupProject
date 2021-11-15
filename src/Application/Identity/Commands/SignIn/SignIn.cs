@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Application.Identity.Commands.LoginUser
 {
-    public record LoginUser : ICommand
+    public record SignIn : ICommand
     {
         [JsonIgnore]
         public TokenModel Token { get; set; }

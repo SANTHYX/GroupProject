@@ -20,7 +20,7 @@ namespace Api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterUser([FromBody] RegisterUser command)
+        public async Task<IActionResult> RegisterUser([FromBody] SignUp command)
         {
             await DispatchAsync(command);
 
@@ -28,7 +28,7 @@ namespace Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> LoginUser([FromBody] LoginUser command)
+        public async Task<IActionResult> LoginUser([FromBody] SignIn command)
         {
             await DispatchAsync(command);
 

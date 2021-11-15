@@ -32,8 +32,7 @@ namespace Api
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterModule<InfrastructureIoC>();
-            builder.RegisterModule<AppliactionIoC>();
+            builder.RegisterModule<MainIoC>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
