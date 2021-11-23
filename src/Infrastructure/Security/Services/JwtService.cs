@@ -4,7 +4,7 @@ using System;
 
 namespace Infrastructure.Security.Services
 {
-    public class JwtService //: //IJwtService
+    public class JwtService : IJwtService
     {
         //TODO:
         /*
@@ -12,10 +12,16 @@ namespace Infrastructure.Security.Services
          * Ustaw sekretny klucz do security w safe miejscu
          * Wygeneruj token z creedentialami
          * użyj clamesów gdzie uniqueId//UniqueName == Id użytkownika 
-        
+        */
+
+        public string TokenPayload { get; set; }
+        public string Refresh { get; set; }
+        public DateTime ExpirationTime { get; set; }
+
         public (string tokenPayload, string refresh, DateTime expirationTime) CreateJWT(User user)
         {
             
-     } */
+
+     } 
     }
 }
