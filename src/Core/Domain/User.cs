@@ -1,4 +1,6 @@
-﻿using Core.Types;
+﻿using Core.Commons.Identity;
+using Core.Types;
+using System.Collections.Generic;
 
 namespace Core.Domain
 {
@@ -9,6 +11,12 @@ namespace Core.Domain
         public string Email { get; set; }
         public string Password { get; set; }
         public string Salt { get; set; }
+        public ICollection<IdentityToken> IdentityTokens { get; set; }
+
+        protected User()
+        {
+
+        }
 
         public User(string nickName, string login, string email, string password, string salt)
         {

@@ -1,10 +1,11 @@
-﻿using Core.Domain;
+﻿using Core.Commons.Identity;
+using Core.Domain;
 using System;
 
 namespace Infrastructure.Commons.Services
 {
     public interface IJwtService
     {
-        (string tokenPayload, string refresh, DateTime expirationTime) CreateJWT(User user);
+        (string tokenPayload, IdentityToken identityToken, DateTime expirationTime) CreateJWT(User user);
     }
 }
