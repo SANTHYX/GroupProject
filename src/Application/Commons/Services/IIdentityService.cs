@@ -1,4 +1,5 @@
-﻿using Core.Domain;
+﻿using Core.Commons.Identity;
+using Core.Domain;
 using System.Threading.Tasks;
 
 namespace Application.Commons.Services
