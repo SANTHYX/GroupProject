@@ -1,6 +1,6 @@
 ﻿using Core.Types;
 
-namespace Core.Domain
+namespace Core.Commons.Identity
 {
     public class IdentityToken : IEntity
     {
