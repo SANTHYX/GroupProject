@@ -8,7 +8,19 @@ namespace Application.Identity.Commands.LoginUser
     {
         [JsonIgnore]
         public TokenModel Token { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
+        public string Login { get;  }
+        public string Password { get; }
+
+        public SignIn()
+        {
+
+        }
+
+        public SignIn(string login,string password)
+        {
+            Login = login;
+            Password = password;
+        }
     }
+    
 }
