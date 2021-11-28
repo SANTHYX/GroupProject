@@ -4,5 +4,6 @@ namespace Application.Identity.Commands.RefreshToken
 {
     public record RefreshToken : ICommand
     {
+        public string Refresh { get; set; }
     }
 }

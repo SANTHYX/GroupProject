@@ -10,12 +10,13 @@ namespace Infrastructure.Persistance
     {
         private readonly DataContext _context;
         public IUserRepository User { get; }
-
+        public ITokenRepository Token { get; }
 
         public UnitOfWork(DataContext context)
         {
             _context = context;
             User = new UserRepository(context);
+            Token = new TokenRepository(context);
         }
 
         public async Task CommitAsync(CancellationToken cancellationToken)
@@ -29,5 +30,6 @@ namespace Infrastructure.Persistance
         {
             throw new System.NotImplementedException();
         }
+        
     }
 }

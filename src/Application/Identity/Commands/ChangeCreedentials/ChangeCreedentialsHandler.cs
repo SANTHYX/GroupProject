@@ -1,18 +1,39 @@
 ﻿using Application.Commons.CQRS.Command;
+using Application.Commons.Persistance;
+using Core.Commons.Security;
+using System;
 using System.Threading.Tasks;
 
 namespace Application.Identity.Commands.ChangeCreedentials
 {
     public class ChangeCreedentialsHandler : ICommandHandler<ChangeCreedentials>
     {
-        public ChangeCreedentialsHandler()
-        {
+        private readonly IEncryptor _encryptor;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly Guid _userId;
 
+        public ChangeCreedentialsHandler(IUnitOfWork unitOfWork, IEncryptor encryptor)
+        {
+            _unitOfWork = unitOfWork;
+            _encryptor = encryptor;
         }
 
-        public Task HandleAsync(ChangeCreedentials command)
+        public async Task HandleAsync(ChangeCreedentials command)
         {
-            throw new System.NotImplementedException();
+            var user = await _unitOfWork.User.GetById(_userId);
+
+            if (user == null) throw new Exception("Uauthorised access change my mind");
+            if (command.NewPassword != command.ConfirmNewPassword) throw new Exception("Passwords are incorrect");
+            if (command.NewPassword == null) throw new ArgumentNullException(nameof(command.NewPassword),"Password is Required");
+            if (command.ConfirmNewPassword == null) throw new ArgumentNullException(nameof(command.ConfirmNewPassword), "ConfirmNewPassword is Required");
+
+            var (hash, salt) = _encryptor.HashPassword(command.NewPassword);
+
+            user.Password = hash;
+            user.Salt = salt;
+
+            _unitOfWork.User.Update(user);
+            await _unitOfWork.CommitAsync();
         }
     }
 }

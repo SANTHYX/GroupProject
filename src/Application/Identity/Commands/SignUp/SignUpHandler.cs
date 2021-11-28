@@ -7,12 +7,12 @@ namespace Application.Identity.Commands.RegisterUser
 {
     public class SignUpHandler : ICommandHandler<SignUp>
     {
-        private readonly IUnitOfWork _unit;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IUserFactory _factory;
 
-        public SignUpHandler(IUnitOfWork unit, IUserFactory factory)
+        public SignUpHandler(IUnitOfWork unitOfWork, IUserFactory factory)
         {
-            _unit = unit;
+            _unitOfWork = unitOfWork;
             _factory = factory;
         }
 
@@ -24,8 +24,8 @@ namespace Application.Identity.Commands.RegisterUser
                 command.Email,
                 command.Password);
 
-            await _unit.User.AddAsync(user);
-            await _unit.CommitAsync();
+            await _unitOfWork.User.AddAsync(user);
+            await _unitOfWork.CommitAsync();
         }
 
     }

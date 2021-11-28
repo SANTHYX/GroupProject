@@ -4,5 +4,6 @@ namespace Application.Identity.Commands.RevokeToken
 {
     public record RevokeToken : ICommand
     {
+        public string Refresh { get; set; }
     }
 }

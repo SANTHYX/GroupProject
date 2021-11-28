@@ -12,4 +12,10 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Movies\" />
+    <Folder Include="Comments\" />
+    <Folder Include="Users\" />
+  </ItemGroup>
+
 </Project>

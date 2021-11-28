@@ -11,16 +11,6 @@ namespace Application.Identity.Commands.LoginUser
         public string Login { get;  }
         public string Password { get; }
 
-        public SignIn()
-        {
-
-        }
-
-        public SignIn(string login,string password)
-        {
-            Login = login;
-            Password = password;
-        }
     }
     
 }

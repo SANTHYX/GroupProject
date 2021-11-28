@@ -6,11 +6,11 @@ namespace Application.Identity.Commands.LoginUser
 {
     public class SignInHandler : ICommandHandler<SignIn>
     {
-        private readonly IUnitOfWork _unit;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public SignInHandler(IUnitOfWork unit)
+        public SignInHandler(IUnitOfWork unitOfWork)
         {
-            _unit = unit;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task HandleAsync(SignIn command)
