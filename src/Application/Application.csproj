@@ -10,12 +10,14 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.12" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Movies\" />
-    <Folder Include="Comments\" />
-    <Folder Include="Users\" />
+    <Folder Include="Movies\Queries\GetMovie\Dto\NestedModels\" />
+    <Folder Include="Users\Commands\AddToFriends\" />
+    <Folder Include="Users\Queries\DisplayUser\Dto\" />
+    <Folder Include="Users\Queries\DisplayUser\" />
   </ItemGroup>
 
 </Project>
