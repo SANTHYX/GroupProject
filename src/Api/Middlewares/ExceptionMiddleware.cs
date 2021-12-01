@@ -1,5 +1,6 @@
 ﻿using Api.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -8,10 +9,12 @@ namespace Api.Middlewares
 {
     public class ExceptionMiddleware
     {
+        private readonly ILogger<ExceptionMiddleware> _logger;
         private readonly RequestDelegate _next;
 
-        public ExceptionMiddleware(RequestDelegate next)
+        public ExceptionMiddleware(ILogger<ExceptionMiddleware> logger, RequestDelegate next)
         {
+            _logger = logger;
             _next = next;
         }
 
@@ -35,6 +38,8 @@ namespace Api.Middlewares
                 var errorResponse = JsonSerializer.Serialize(error);
 
                 await response.WriteAsync(errorResponse);
+
+                _logger.LogError(ex.Message);
             }
         }
     }

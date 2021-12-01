@@ -8,6 +8,7 @@ namespace Application.Identity.Commands.RecoveryAccess
     public class RecoveryAccessHandler : ICommandHandler<RecoveryAccess>
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public RecoveryAccessHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;

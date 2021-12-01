@@ -8,6 +8,7 @@ namespace Core.Commons.Identity
     {
         public string Refresh { get; set; }
         public DateTime ExpirationTime { get; set; }
+        public bool IsRevoked { get; set; }
         public Guid UserId { get; set; }
         public User User { get; set; }
 
@@ -20,6 +21,7 @@ namespace Core.Commons.Identity
         {
             Refresh = Guid.NewGuid().ToString("N");
             ExpirationTime = expirationTime;
+            IsRevoked = false;
             User = user;
         }
 

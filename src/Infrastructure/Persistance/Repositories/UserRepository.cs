@@ -15,10 +15,12 @@ namespace Infrastructure.Persistance.Repositories
             _context = context;
         }
 
-        //this is how human works!
         public async Task<User> GetById(Guid id) 
             => await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-        
+
+        public async Task<User> GetByLogin(string login)
+            => await _context.Users.FirstOrDefaultAsync(x => x.Login == login);
+
         public async Task AddAsync(User user)
         {
             await _context.Users.AddAsync(user);

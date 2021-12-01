@@ -10,7 +10,6 @@ namespace Application.Identity.Commands.ChangeCreedentials
     {
         private readonly IEncryptor _encryptor;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly Guid _userId;
 
         public ChangeCreedentialsHandler(IUnitOfWork unitOfWork, IEncryptor encryptor)
         {
@@ -20,12 +19,16 @@ namespace Application.Identity.Commands.ChangeCreedentials
 
         public async Task HandleAsync(ChangeCreedentials command)
         {
-            var user = await _unitOfWork.User.GetById(_userId);
+            var user = await _unitOfWork.User.GetById(command.UserId);
 
-            if (user == null) throw new Exception("Uauthorised access change my mind");
-            if (command.NewPassword != command.ConfirmNewPassword) throw new Exception("Passwords are incorrect");
-            if (command.NewPassword == null) throw new ArgumentNullException(nameof(command.NewPassword),"Password is Required");
-            if (command.ConfirmNewPassword == null) throw new ArgumentNullException(nameof(command.ConfirmNewPassword), "ConfirmNewPassword is Required");
+            if (user == null) 
+                throw new Exception("Uauthorised access change my mind");
+            if (command.NewPassword == null) 
+                throw new ArgumentNullException(nameof(command.NewPassword), "Password is Required");
+            if (command.ConfirmNewPassword == null)
+                throw new ArgumentNullException(nameof(command.ConfirmNewPassword), "ConfirmNewPassword is Required");
+            if (command.NewPassword != command.ConfirmNewPassword) 
+                throw new Exception("Passwords are incorrect");
 
             var (hash, salt) = _encryptor.HashPassword(command.NewPassword);
 

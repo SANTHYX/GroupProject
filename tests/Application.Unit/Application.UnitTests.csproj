@@ -25,4 +25,8 @@
     <Folder Include="Users\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Application\Application.csproj" />
+  </ItemGroup>
+
 </Project>

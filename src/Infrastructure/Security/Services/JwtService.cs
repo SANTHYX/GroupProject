@@ -13,13 +13,6 @@ namespace Infrastructure.Security.Services
 {
     public class JwtService : IJwtService
     {
-        //TODO:
-        /*
-         * Ustaw se w safe miejscu czas wygasania tokena: mogą być ilości minut <=zrobione
-         * Ustaw sekretny klucz do security w safe miejscu <=zrobione
-         * Wygeneruj token z creedentialami <=zrobione
-         * użyj clamesów gdzie uniqueId//UniqueName == Id użytkownika <=zrobione
-        */
         private readonly SecuritySettings _settings;
 
         public JwtService(IOptions<SecuritySettings> settings)
@@ -49,7 +42,7 @@ namespace Infrastructure.Security.Services
 
             var identityToken = new IdentityToken(expirationTime, user);
 
-            return (tokenPayload, identityToken,expirationTime);
+            return (tokenPayload, identityToken, expirationTime);
             
         } 
     }

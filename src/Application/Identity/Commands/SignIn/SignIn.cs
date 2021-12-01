@@ -10,7 +10,6 @@ namespace Application.Identity.Commands.LoginUser
         public TokenModel Token { get; set; }
         public string Login { get;  }
         public string Password { get; }
-
     }
     
 }
