@@ -27,6 +27,8 @@ namespace Application.Identity.Commands.RefreshToken
             if(token.IsRevoked == true)
                 throw new Exception("Token has been revoked earlier");
 
+            await _service.RevokeToken(token);
+
             var newToken = await _service.GenerateToken(user);
 
             command.Token = newToken;
