@@ -1,4 +1,6 @@
-﻿using Infrastructure.Options;
+﻿using Core.Types;
+using FluentValidation.AspNetCore;
+using Infrastructure.Options;
 using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +19,8 @@ namespace Infrastructure.Extension
                     opt => opt.MigrationsAssembly("Infrastructure"));
                 x.EnableDetailedErrors();
             });
+            services.AddFluentValidation(cfg =>
+                cfg.RegisterValidatorsFromAssemblyContaining<Entity>());
         }
     }
 }
