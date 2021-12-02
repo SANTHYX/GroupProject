@@ -26,10 +26,10 @@ namespace Infrastructure.IoC.Modules
                  .AsImplementedInterfaces()
                  .SingleInstance();
 
-            builder.RegisterType<ICollection<RecoveryThread>>()
-                .As<Collection<RecoveryThread>>()
+            builder.RegisterType<Collection<RecoveryThread>>()
+                .As<ICollection<RecoveryThread>>()
                 .SingleInstance();
-
+          
             builder.RegisterType<UnitOfWork>()
                 .As<IUnitOfWork>()
                 .InstancePerLifetimeScope();

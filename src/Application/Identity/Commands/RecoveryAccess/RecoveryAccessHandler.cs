@@ -8,15 +8,24 @@ namespace Application.Identity.Commands.RecoveryAccess
     public class RecoveryAccessHandler : ICommandHandler<RecoveryAccess>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IRecoveryThreadStorage _threadStorage;
 
-        public RecoveryAccessHandler(IUnitOfWork unitOfWork)
+        public RecoveryAccessHandler(IUnitOfWork unitOfWork, IRecoveryThreadStorage threadStorage)
         {
             _unitOfWork = unitOfWork;
+            _threadStorage = threadStorage;
         }
 
-        public Task HandleAsync(RecoveryAccess command)
+        public async Task HandleAsync(RecoveryAccess command)
         {
-            throw new NotImplementedException();
+            var user = await _unitOfWork.User.GetByEmail(command.Email);
+
+            if(user == null)
+                throw new Exception("Object not found");
+
+            _threadStorage.Create(user);
+
+            //TODO: Mail sending with URL to page that perform setting a new password
         }
     }
 }

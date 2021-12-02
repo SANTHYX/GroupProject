@@ -21,6 +21,9 @@ namespace Infrastructure.Persistance.Repositories
         public async Task<User> GetByLogin(string login)
             => await _context.Users.FirstOrDefaultAsync(x => x.Login == login);
 
+        public async Task<User> GetByEmail(string email)
+            => await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+
         public async Task AddAsync(User user)
         {
             await _context.Users.AddAsync(user);
