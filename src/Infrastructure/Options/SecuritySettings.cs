@@ -8,7 +8,7 @@ namespace Infrastructure.Options
 {
     public class SecuritySettings
     {
-        public static string Section => "AuthentionToken";
+        public const string Section = "AuToken";
         public string Key { get; set; }
     }
 }

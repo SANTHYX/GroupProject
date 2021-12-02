@@ -22,7 +22,7 @@ namespace Infrastructure.Security.Services
 
         public (string tokenPayload, IdentityToken identityToken, DateTime expirationTime) CreateJWT(User user)
         {
-            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_settings.Key));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Key));
             var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expirationTime = DateTime.UtcNow.AddDays(7);
             var claims = new Claim[]
