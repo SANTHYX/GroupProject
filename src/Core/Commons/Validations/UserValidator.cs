@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace Core.Commons.Validations
 {
-    public class UserValidations : AbstractValidator<User>
+    public class UserValidator : AbstractValidator<User>
     {
-        public UserValidations()
+        public UserValidator()
         {
             RuleFor(x => x.Email)
                 .EmailAddress()

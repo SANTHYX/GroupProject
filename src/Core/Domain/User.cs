@@ -22,7 +22,7 @@ namespace Core.Domain
         {
             NickName = nickName;
             Login = login;
-            Email = email;
+            Email = email.ToLower();
             Password = password;
             Salt = salt;
         }
