@@ -9,7 +9,7 @@ namespace Infrastructure.Persistance
 {
     public class RecoveryThreadsStorage : IRecoveryThreadStorage
     {
-        private readonly ICollection<RecoveryThread> _recoveryThreads;
+        public ICollection<RecoveryThread> _recoveryThreads {get; } 
 
         public RecoveryThreadsStorage(ICollection<RecoveryThread> recoveryThreads)
         {

@@ -1,5 +1,6 @@
 ﻿using Application.Commons.Persistance;
 using Autofac;
+using Core.Commons.Identity;
 using Core.Commons.Repositories;
 using Core.Types;
 using Infrastructure.Persistance;
@@ -25,8 +26,8 @@ namespace Infrastructure.IoC.Modules
                  .AsImplementedInterfaces()
                  .SingleInstance();
 
-            builder.RegisterType<ICollection<RecoveryThreadsStorage>>()
-                .As<Collection<RecoveryThreadsStorage>>()
+            builder.RegisterType<ICollection<RecoveryThread>>()
+                .As<Collection<RecoveryThread>>()
                 .SingleInstance();
 
             builder.RegisterType<UnitOfWork>()
