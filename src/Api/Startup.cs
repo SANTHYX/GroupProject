@@ -7,6 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Infrastructure.Extension;
+using Api.Filters;
+using FluentValidation.AspNetCore;
+using Core.Types;
+using System.Reflection;
+using Core.Commons.Validations;
 
 namespace Api
 {
@@ -22,7 +27,7 @@ namespace Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddInfrastructure(Configuration);
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });

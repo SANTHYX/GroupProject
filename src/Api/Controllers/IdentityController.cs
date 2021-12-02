@@ -23,7 +23,7 @@ namespace Api.Controllers
         {
 
         }
-
+        
         [HttpPost("sign-up")]
         public async Task<IActionResult> SignUpAsync([FromBody] SignUp command)
         {

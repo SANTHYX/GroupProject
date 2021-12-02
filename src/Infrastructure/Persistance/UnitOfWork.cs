@@ -26,9 +26,9 @@ namespace Infrastructure.Persistance
             
         }
 
-        public Task CommitAsync()
+        public async Task CommitAsync()
         {
-            throw new System.NotImplementedException();
+            await _context.SaveChangesAsync();
         }
         
     }
