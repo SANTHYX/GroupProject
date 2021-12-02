@@ -1,7 +1,6 @@
 ﻿using Application.Commons.CQRS.Command;
 using Application.Commons.Persistance;
 using Application.Commons.Services;
-using Application.Identity.Commands.LoginUser.Dto;
 using Core.Commons.Security;
 using System;
 using System.Threading.Tasks;
