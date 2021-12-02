@@ -1,15 +1,10 @@
 ﻿using Application.Identity.Commands.RegisterUser;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Commons.Validators.Identity
 {
-    public class SignUpValidator : AbstractValidator<SignUp>
-    {
+    public class SignUpValidator : AbstractValidator<SignUp>, Core.Types.IValidator
+    { 
         public SignUpValidator()
         {
             RuleFor(x => x.Email)

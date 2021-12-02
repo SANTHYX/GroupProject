@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.Identity.Commands.LoginUser;
+﻿using Application.Identity.Commands.LoginUser;
 using FluentValidation;
 
 namespace Application.Commons.Validators.Identity
 {
-    public class SignInValidator : AbstractValidator<SignIn>
+    public class SignInValidator : AbstractValidator<SignIn>, Core.Types.IValidator
     {
         public SignInValidator()
         {

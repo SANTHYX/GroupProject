@@ -1,14 +1,9 @@
 ﻿using Application.Identity.Commands.ChangeCreedentials;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Commons.Validators.Identity
 {
-    public class ChangeCredentialsValidator : AbstractValidator<ChangeCreedentials>
+    public class ChangeCredentialsValidator : AbstractValidator<ChangeCreedentials>, Core.Types.IValidator
     {
         public ChangeCredentialsValidator()
         {

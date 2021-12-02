@@ -1,10 +1,4 @@
-﻿using Application.Identity.Commands.ChangeCreedentials;
-using Application.Identity.Commands.LoginUser;
-using Application.Identity.Commands.RecoveryAccess;
-using Application.Identity.Commands.RefreshToken;
-using Application.Identity.Commands.RegisterUser;
-using Application.Identity.Commands.RevokeToken;
-using Application.Identity.Commands.SetPasswordAtRecovery;
+﻿using Application.Commons.Validators.Identity;
 using Core.Types;
 using FluentValidation.AspNetCore;
 using Infrastructure.Options;
@@ -27,17 +21,7 @@ namespace Infrastructure.Extension
                 x.EnableDetailedErrors();
             });
             services.AddFluentValidation(cfg =>
-            {    
-                cfg.RegisterValidatorsFromAssemblyContaining<SignUp>();
-                cfg.RegisterValidatorsFromAssemblyContaining<SignIn>();
-                cfg.RegisterValidatorsFromAssemblyContaining<SetPasswordAtRecovery>();
-                cfg.RegisterValidatorsFromAssemblyContaining<RevokeToken>();
-                cfg.RegisterValidatorsFromAssemblyContaining<RefreshToken>();
-                cfg.RegisterValidatorsFromAssemblyContaining<RecoveryAccess>();
-                cfg.RegisterValidatorsFromAssemblyContaining<ChangeCreedentials>();
-            }).AddFluentValidation();
-                
-                
+                cfg.RegisterValidatorsFromAssemblyContaining<IValidator>());
         }
     }
 }

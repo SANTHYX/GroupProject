@@ -1,14 +1,9 @@
 ﻿using Application.Identity.Commands.RecoveryAccess;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Commons.Validators.Identity
 {
-    class RecoveryAccessValidator : AbstractValidator<RecoveryAccess>
+    class RecoveryAccessValidator : AbstractValidator<RecoveryAccess>, Core.Types.IValidator
     {
         public RecoveryAccessValidator()
         {

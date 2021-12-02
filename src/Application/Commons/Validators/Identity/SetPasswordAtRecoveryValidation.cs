@@ -1,14 +1,9 @@
 ﻿using Application.Identity.Commands.SetPasswordAtRecovery;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Commons.Validators.Identity
 {
-    public class SetPasswordAtRecoveryValidation : AbstractValidator<SetPasswordAtRecovery>
+    public class SetPasswordAtRecoveryValidation : AbstractValidator<SetPasswordAtRecovery>, Core.Types.IValidator
     {
         public SetPasswordAtRecoveryValidation()
         {
