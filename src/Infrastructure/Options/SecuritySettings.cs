@@ -1,8 +1,14 @@
-﻿namespace Infrastructure.Options
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Infrastructure.Options
 {
     public class SecuritySettings
     {
-        public const string Section = "AuthentionToken";
+        public static string Section => "AuthentionToken";
         public string Key { get; set; }
     }
 }

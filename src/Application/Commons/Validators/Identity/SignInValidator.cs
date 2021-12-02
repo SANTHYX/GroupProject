@@ -8,8 +8,7 @@ namespace Application.Commons.Validators.Identity
         public SignInValidator()
         {
             RuleFor(x => x.Login)
-                .NotEmpty()
-                .WithMessage("Login is required");
+                .NotEmpty();
             RuleFor(x => x.Password)
                 .NotEmpty()
                 .WithMessage("Password is required");

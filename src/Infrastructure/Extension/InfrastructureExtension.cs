@@ -1,4 +1,5 @@
-﻿using Core.Types;
+﻿using Application.Commons.Validators.Identity;
+using Core.Types;
 using FluentValidation.AspNetCore;
 using Infrastructure.Options;
 using Infrastructure.Persistance;
@@ -12,8 +13,7 @@ namespace Infrastructure.Extension
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<SecuritySettings>(configuration.GetSection(SecuritySettings.Section));
-
+            services.AddOptions<SecuritySettings>(configuration.GetSection(SecuritySettings.Section).Value);
             services.AddDbContext<DataContext>(x => 
             {
                 x.UseNpgsql(configuration.GetConnectionString("MovieDbConnection"),
