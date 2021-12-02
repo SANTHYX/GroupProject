@@ -1,4 +1,4 @@
-﻿using Core.Commons.Validations;
+﻿using Application.Identity.Commands.RegisterUser;
 using Core.Types;
 using FluentValidation.AspNetCore;
 using Infrastructure.Options;
@@ -20,7 +20,12 @@ namespace Infrastructure.Extension
                     opt => opt.MigrationsAssembly("Infrastructure"));
                 x.EnableDetailedErrors();
             });
-             
+            services.AddFluentValidation(cfg =>
+            {    
+                cfg.RegisterValidatorsFromAssemblyContaining<SignUp>(); 
+            }).AddFluentValidation();
+                
+                
         }
     }
 }
