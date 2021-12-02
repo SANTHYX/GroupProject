@@ -8,7 +8,7 @@ namespace Infrastructure.IoC
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterModule<FactoriesModule>();
-            builder.RegisterModule<RepositoriesModule>();
+            builder.RegisterModule<PersistanceModule>();
             builder.RegisterModule<CQRSModule>();
             builder.RegisterModule<SecurityModule>();
         }
