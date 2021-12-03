@@ -19,9 +19,9 @@
 
   <ItemGroup>
     <Folder Include="Movies\Queries\GetMovie\Dto\NestedModels\" />
+    <Folder Include="Rooms\Commands\SetupRoomDetails\" />
+    <Folder Include="Rooms\Queries\GetRoom\" />
     <Folder Include="Users\Commands\AddToFriends\" />
-    <Folder Include="Users\Queries\DisplayUser\Dto\" />
-    <Folder Include="Users\Queries\DisplayUser\" />
   </ItemGroup>
 
 </Project>

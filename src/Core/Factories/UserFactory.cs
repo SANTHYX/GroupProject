@@ -23,9 +23,5 @@ namespace Core.Factories
                     return new(nickName, login, email, hash, salt);
             }
         }
-
-
-
-
     }
 }

@@ -17,18 +17,18 @@ namespace Infrastructure.CQRS
             _context = context;
         }
 
-        public async Task<TResult> SendAsync<TResult, QSource>(QSource query) where QSource : IQuery<TResult>
+        public async Task<TResult> SendAsync<TResult, QSource>(QSource query) where QSource : class, IQuery<TResult>
         {
-            _logger.LogInformation($"Querry { typeof(QSource) } is computing...");
-
             if (query is null)
             {
                 throw new ArgumentNullException(nameof(query), "Querry cannot be empty");
             }
 
+            _logger.LogInformation($"Querry { query.GetType().Name } is computing...");
+
             var handler = _context.Resolve<IQueryHandler<TResult, QSource>>();
 
-            _logger.LogInformation($"Querry { typeof(QSource) } computing has end," +
+            _logger.LogInformation($"Querry { query.GetType().Name  } computing has end," +
                 $" check your Http client for results");
 
             return await handler.HandleAsync(query);

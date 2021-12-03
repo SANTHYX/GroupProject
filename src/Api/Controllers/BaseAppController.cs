@@ -12,7 +12,7 @@ namespace Api.Controllers
     {
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly IQueryDispatcher _queryDispatcher;
-        private Guid UserId => User.Identity.IsAuthenticated == true 
+        private Guid CurrentUserId => User.Identity.IsAuthenticated == true 
             ? Guid.Parse(User.Identity.Name) 
             : Guid.Empty;
 
@@ -24,14 +24,15 @@ namespace Api.Controllers
 
         protected async Task DispatchAsync<T>(T command) where T : class, ICommand
         {
-            if (true)
+            if (command is AuthenticatedCommand authenticatedCommand)
             {
-
+                authenticatedCommand.UserId = CurrentUserId;
             }
+
             await _commandDispatcher.DispatchAsync(command);
         }
 
-        protected async Task<TResult> SendAsync<TResult, QSource>(QSource query) where QSource : IQuery<TResult>
+        protected async Task<TResult> SendAsync<TResult, QSource>(QSource query) where QSource : class, IQuery<TResult>
             => await _queryDispatcher.SendAsync<TResult, QSource>(query);
     }
 }
