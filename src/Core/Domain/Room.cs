@@ -4,6 +4,16 @@ namespace Core.Domain
 {
     public class Room : Entity
     {
-        public bool IsPublic { get; set; }
+        public string Accessability { get; set; }
+
+        protected Room()
+        {
+
+        }
+
+        public Room(string accessability)
+        {
+            Accessability = accessability;
+        }
     }
 }

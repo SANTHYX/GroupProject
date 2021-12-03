@@ -1,23 +1,21 @@
 ﻿using Core.Commons.Factories;
 using Core.Domain;
+using Core.Enums;
 using System;
 
 namespace Core.Factories
 {
-    public class RoomFactory : IFactory
+    public class RoomFactory : IRoomFactory
     {
-        // TODO : We will do that on enum or static strings class
-        public Room CreateInstance(bool isPublic)
+        public Room CreateInstance(Accessability accessability)
         {
-            switch (isPublic)
+            return accessability switch
             {
-                case(true):
-                    return new();
-                case(false):
-                    return new();
-                default:
-                    throw new Exception("Invalid type of room");
-            }
+                (Accessability.Public) => new(nameof(Accessability.Public)),
+                (Accessability.Private) => new(nameof(Accessability.Private)),
+                (Accessability.OnlyFriends) => new(nameof(Accessability.OnlyFriends)),
+                _ => throw new Exception("Invalid type of room"),
+            };
         }
     }
 }

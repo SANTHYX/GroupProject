@@ -17,11 +17,10 @@ namespace Core.Factories
         {
             var (hash, salt) = _encryptor.HashPassword(password);
 
-            switch ("x")
+            return "x" switch
             {
-                default:
-                    return new(nickName, login, email, hash, salt);
-            }
+                _ => new(nickName, login, email, hash, salt),
+            };
         }
     }
 }
