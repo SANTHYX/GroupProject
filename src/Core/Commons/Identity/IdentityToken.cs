@@ -22,7 +22,7 @@ namespace Core.Commons.Identity
             Refresh = Guid.NewGuid().ToString("N");
             ExpirationTime = expirationTime;
             IsRevoked = false;
-            User = user;
+            User = user ?? throw new Exception("User is empty");
         }
 
 }

@@ -10,6 +10,7 @@ using Infrastructure.Extension;
 using FluentValidation.AspNetCore;
 using Core.Types;
 using System.Reflection;
+using Api.Middlewares;
 
 namespace Api
 {
@@ -57,6 +58,10 @@ namespace Api
             });
 
             app.UseRouting();
+
+            app.UseMiddleware<ExceptionMiddleware>();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

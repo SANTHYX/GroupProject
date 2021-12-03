@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Persistance.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class MovieContextMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,7 +24,7 @@ namespace Infrastructure.Persistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdentityToken",
+                name: "Tokens",
                 columns: table => new
                 {
                     Refresh = table.Column<string>(type: "text", nullable: false),
@@ -34,9 +34,9 @@ namespace Infrastructure.Persistance.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("Refresh", x => x.Refresh);
+                    table.PrimaryKey("PK_Tokens", x => x.Refresh);
                     table.ForeignKey(
-                        name: "FK_IdentityToken_Users_UserId",
+                        name: "FK_Tokens_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -44,15 +44,15 @@ namespace Infrastructure.Persistance.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_IdentityToken_UserId",
-                table: "IdentityToken",
+                name: "IX_Tokens_UserId",
+                table: "Tokens",
                 column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "IdentityToken");
+                name: "Tokens");
 
             migrationBuilder.DropTable(
                 name: "Users");

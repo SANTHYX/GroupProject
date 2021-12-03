@@ -35,12 +35,11 @@ namespace Infrastructure.Persistance.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("Refresh")
-                        .HasName("Refresh");
+                    b.HasKey("Refresh");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("IdentityToken");
+                    b.ToTable("Tokens");
                 });
 
             modelBuilder.Entity("Core.Domain.User", b =>

@@ -21,7 +21,7 @@ namespace Infrastructure.Extension
                 x.EnableDetailedErrors();
             });
             services.AddFluentValidation(cfg =>
-                cfg.RegisterValidatorsFromAssemblyContaining<IValidator>());
+                cfg.RegisterValidatorsFromAssemblyContaining<SignUpValidator>());
         }
     }
 }

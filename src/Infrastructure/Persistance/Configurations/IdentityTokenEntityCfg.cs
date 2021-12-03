@@ -8,8 +8,7 @@ namespace Infrastructure.Persistance.Configurations
     {
         public void Configure(EntityTypeBuilder<IdentityToken> builder)
         {
-            builder.HasKey(x => x.Refresh)
-                .HasName("Refresh");
+            builder.HasKey(x => x.Refresh);
             builder.Property(x => x.ExpirationTime)
                 .HasMaxLength(30);
             builder.Property(x => x.IsRevoked)

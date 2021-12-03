@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Persistance.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211202150738_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20211203100337_MovieContextMigration")]
+    partial class MovieContextMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,12 +37,11 @@ namespace Infrastructure.Persistance.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("Refresh")
-                        .HasName("Refresh");
+                    b.HasKey("Refresh");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("IdentityToken");
+                    b.ToTable("Tokens");
                 });
 
             modelBuilder.Entity("Core.Domain.User", b =>
