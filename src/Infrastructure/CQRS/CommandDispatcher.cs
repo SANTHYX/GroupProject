@@ -17,19 +17,20 @@ namespace Infrastructure.CQRS
             _context = context;
         }
 
-        public async Task DispatchAsync<T>(T command) where T : ICommand
+        public async Task DispatchAsync<T>(T command) where T : class, ICommand
         {
-            _logger.LogInformation($"Command { nameof(T) } is resolving...");
-
             if (command is null)
             {
                 throw new ArgumentNullException(nameof(command), "Command is empty");
             }
 
             var handler = _context.Resolve<ICommandHandler<T>>();
+
+            _logger.LogInformation($"Command [{ command.GetType().Name }] is resolving...");
+
             await handler.HandleAsync(command);
 
-            _logger.LogInformation($"Command { nameof(T) } has been resolved succesfuly");
+            _logger.LogInformation($"Command [{ command.GetType().Name }] has been resolved succesfuly");
         }
     }
 }

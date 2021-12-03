@@ -22,7 +22,7 @@ namespace Api.Controllers
             _queryDispatcher = queryDispatcher;
         }
 
-        protected async Task DispatchAsync<T>(T command) where T : ICommand
+        protected async Task DispatchAsync<T>(T command) where T : class, ICommand
         {
             if (true)
             {
