@@ -1,6 +1,7 @@
 ﻿using Application.Commons.CQRS.Command;
 using Application.Commons.Persistance;
 using Core.Commons.Factories;
+using System;
 using System.Threading.Tasks;
 
 namespace Application.Identity.Commands.RegisterUser
@@ -18,6 +19,11 @@ namespace Application.Identity.Commands.RegisterUser
 
         public async Task HandleAsync(SignUp command)
         {
+            if (await _unitOfWork.User.IsExist(command.Email.ToLower()))
+            {
+                throw new Exception("User already exist");
+            }
+
             var user = _factory.CreateInstance(
                 command.NickName,
                 command.Login,

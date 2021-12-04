@@ -33,5 +33,8 @@ namespace Infrastructure.Persistance.Repositories
         {
             _context.Users.Update(user);
         }
+
+        public async Task<bool> IsExist(string email)
+            => await _context.Users.AnyAsync(x => x.Email == email);
     }
 }

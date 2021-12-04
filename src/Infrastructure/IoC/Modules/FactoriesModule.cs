@@ -9,10 +9,10 @@ namespace Infrastructure.IoC.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            var assembly = typeof(IRoomFactory).GetTypeInfo().Assembly;
+            var assembly = typeof(IFactory).GetTypeInfo().Assembly;
 
             builder.RegisterAssemblyTypes(assembly)
-                .Where(x => x.IsAssignableTo<IRoomFactory>())
+                .Where(x => x.IsAssignableTo<IFactory>())
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
         }
