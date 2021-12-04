@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Folder Include="Externals\" />
+    <Folder Include="Files\" />
   </ItemGroup>
 
   <ItemGroup>

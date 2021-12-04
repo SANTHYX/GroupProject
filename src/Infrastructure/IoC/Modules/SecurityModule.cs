@@ -4,6 +4,7 @@ using Core.Commons.Security;
 using Infrastructure.Commons.Services;
 using Infrastructure.Security;
 using Infrastructure.Security.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace Infrastructure.IoC.Modules
 {
@@ -22,6 +23,10 @@ namespace Infrastructure.IoC.Modules
             builder.RegisterType<JwtService>()
                 .As<IJwtService>()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<HttpContextAccessor>()
+                .As<IHttpContextAccessor>()
+                .SingleInstance();
         }
     }
 }
