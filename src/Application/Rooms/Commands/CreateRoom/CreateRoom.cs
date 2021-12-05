@@ -2,7 +2,8 @@
 
 namespace Application.Rooms.Commands.CreateRoom
 {
-    public record CreateRoom : ICommand
+    public record CreateRoom : AuthenticatedCommand
     {
+        public string Name { get; set; }
     }
 }

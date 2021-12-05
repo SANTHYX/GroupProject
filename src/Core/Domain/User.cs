@@ -12,6 +12,7 @@ namespace Core.Domain
         public string Password { get; set; }
         public string Salt { get; set; }
         public ICollection<IdentityToken> IdentityTokens { get; set; }
+        public ICollection<Room> Rooms { get; set; }
 
         protected User()
         {

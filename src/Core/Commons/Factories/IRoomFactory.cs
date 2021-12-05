@@ -5,6 +5,6 @@ namespace Core.Commons.Factories
 {
     public interface IRoomFactory : IFactory
     {
-        Room CreateInstance(Accessability accessability);
+        Room CreateInstance(string name, Accessability accessability, User user);
     }
 }

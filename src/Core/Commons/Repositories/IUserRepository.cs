@@ -11,6 +11,7 @@ namespace Core.Commons.Repositories
         Task<User> GetByEmail(string email);
         Task AddAsync(User user);
         void Update(User user);
-        Task<bool> IsExist(string email);
+        Task<bool> IsExistWithMail(string email);
+        Task<bool> IsExistWithLogin(string login);
     }
 }

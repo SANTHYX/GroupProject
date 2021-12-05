@@ -11,12 +11,16 @@ namespace Infrastructure.Persistance
         private readonly DataContext _context;
         public IUserRepository User { get; }
         public ITokenRepository Token { get; }
+        public IRoomRepository Room { get; }
+        public IMovieRepository Movie { get; }
 
         public UnitOfWork(DataContext context)
         {
             _context = context;
             User = new UserRepository(context);
             Token = new TokenRepository(context);
+            Room = new RoomRepository(context);
+            Movie = new MovieRepository(context);
         }
 
         public async Task CommitAsync(CancellationToken cancellationToken)

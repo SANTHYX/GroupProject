@@ -7,6 +7,7 @@ namespace Core.Commons.Repositories
     public interface IRoomRepository : IRepository
     {
         Task<Room> GetById(Guid id);
+        Task<Room> GetByUserId(Guid userId);
         Task AddAsync(Room room);
         void Update(Room room);
     }

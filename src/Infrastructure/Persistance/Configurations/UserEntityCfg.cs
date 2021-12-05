@@ -15,6 +15,8 @@ namespace Infrastructure.Persistance.Configurations
             builder.HasMany(x => x.IdentityTokens)
                 .WithOne(x => x.User)
                 .HasForeignKey(x => x.UserId);
+            builder.HasMany(x => x.Rooms)
+                .WithOne(x => x.User);
         }
     }
 }

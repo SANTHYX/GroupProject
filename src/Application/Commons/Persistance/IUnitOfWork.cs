@@ -7,6 +7,8 @@ namespace Application.Commons.Persistance
     {
         public IUserRepository User { get; }
         public ITokenRepository Token { get; }
+        public IRoomRepository Room { get; }
+        public IMovieRepository Movie { get; }
         public Task CommitAsync();
     }
 }

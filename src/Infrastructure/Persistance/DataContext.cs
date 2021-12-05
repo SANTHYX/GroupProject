@@ -8,6 +8,8 @@ namespace Infrastructure.Persistance
     {
         public DbSet<User> Users { get; set; }
         public DbSet<IdentityToken> Tokens { get; set; }
+        public DbSet<Room> Rooms { get; set; }
+        public DbSet<Movie> Movies { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

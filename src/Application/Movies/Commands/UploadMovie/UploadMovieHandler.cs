@@ -20,15 +20,17 @@ namespace Application.Movies.Commands.UploadMovie
 
         public async Task HandleAsync(UploadMovie command)
         {
-            var user = _unitOfWork.User.GetById(command.UserId);
+            var room = await _unitOfWork.Room.GetById(command.UserId);
 
-            if(user == null)
+            if(room == null)
                 throw new UnauthorizedAccessException($"You are not authorized to perform this operation");
 
             var fileName = await _videoWriter.SaveFileAsync(command.File);
 
-            Movie movie = new(fileName);
+            Movie movie = new(fileName, room);
 
+            await _unitOfWork.Movie.AddAsync(movie);
+            await _unitOfWork.CommitAsync();
         }
     }
 }

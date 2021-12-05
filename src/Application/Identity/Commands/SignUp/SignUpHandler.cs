@@ -19,11 +19,11 @@ namespace Application.Identity.Commands.RegisterUser
 
         public async Task HandleAsync(SignUp command)
         {
-            if (await _unitOfWork.User.IsExist(command.Email.ToLower()))
-            {
+            if (await _unitOfWork.User.IsExistWithMail(command.Email.ToLower()))
                 throw new Exception("User already exist");
-            }
-
+            if (await _unitOfWork.User.IsExistWithLogin(command.Login))
+                throw new Exception("User already exist");
+         
             var user = _factory.CreateInstance(
                 command.NickName,
                 command.Login,

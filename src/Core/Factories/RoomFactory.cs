@@ -7,13 +7,13 @@ namespace Core.Factories
 {
     public class RoomFactory : IRoomFactory
     {
-        public Room CreateInstance(Accessability accessability)
+        public Room CreateInstance(string name, Accessability accessability, User user)
         {
             return accessability switch
             {
-                (Accessability.Public) => new(nameof(Accessability.Public)),
-                (Accessability.Private) => new(nameof(Accessability.Private)),
-                (Accessability.OnlyFriends) => new(nameof(Accessability.OnlyFriends)),
+                (Accessability.Public) => new(name ,nameof(Accessability.Public), user),
+                (Accessability.Private) => new(name, nameof(Accessability.Private), user),
+                (Accessability.OnlyFriends) => new(name, nameof(Accessability.OnlyFriends), user),
                 _ => throw new Exception("Invalid type of room"),
             };
         }
