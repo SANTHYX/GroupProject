@@ -22,7 +22,10 @@ namespace Application.Rooms.Commands.CreateRoom
             if(user == null)
                 throw new UnauthorizedAccessException("You have not permissions to perform that operation");
 
-            Room room = 
+            Room room = new(command.Name, command.Accessability ?? "Public",user);
+
+            await _unitOfWork.Room.AddAsync(room);
+            await _unitOfWork.CommitAsync();
         }
     }
 }
