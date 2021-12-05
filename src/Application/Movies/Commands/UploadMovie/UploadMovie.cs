@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Application.Movies.Commands.UploadMovie
 {
-    public record UploadMovie : ICommand
+    public record UploadMovie : AuthenticatedCommand
     {
         public IFormFile File { get; set; }
     }

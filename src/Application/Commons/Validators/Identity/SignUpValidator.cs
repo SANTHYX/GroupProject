@@ -20,7 +20,7 @@ namespace Application.Commons.Validators.Identity
                 .WithMessage("Login is required");
             RuleFor(x => x.NickName)
                 .NotEmpty()
-                .WithMessage("Nick name is required");
+                .WithMessage("Nickname is required");
         }
     }
 }

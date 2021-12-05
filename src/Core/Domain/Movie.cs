@@ -4,6 +4,16 @@ namespace Core.Domain
 {
     public class Movie : Entity
     {
-        public Details Details { get; set; }
+        public string FileName { get; set; }
+
+        protected Movie()
+        {
+
+        }
+
+        public Movie(string fileName)
+        {
+            FileName = fileName;
+        }
     }
 }
