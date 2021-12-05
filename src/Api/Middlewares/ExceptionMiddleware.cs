@@ -1,5 +1,6 @@
 ﻿using Api.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Text.Json;
@@ -34,9 +35,10 @@ namespace Api.Middlewares
                     _ => StatusCodes.Status500InternalServerError
                 };
 
-                var error = new ErrorResponse(ex.Message, statusCode);
-                var errorResponse = JsonSerializer.Serialize(error);
+                // var error = new ErrorResponse(ex.Message, statusCode);
+                var error = ApiResponse.ServerError();
 
+                var errorResponse = JsonSerializer.Serialize(error);
                 await response.WriteAsync(errorResponse);
 
                 _logger.LogError(ex.Message);

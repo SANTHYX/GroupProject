@@ -1,7 +1,9 @@
-﻿using Application.Commons.CQRS.Command;
+﻿using Api.Models;
+using Application.Commons.CQRS.Command;
 using Application.Commons.CQRS.Query;
 using Application.Identity.Commands.ChangeCreedentials;
 using Application.Identity.Commands.LoginUser;
+using Application.Identity.Commands.LoginUser.Dto;
 using Application.Identity.Commands.RecoveryAccess;
 using Application.Identity.Commands.RefreshToken;
 using Application.Identity.Commands.RegisterUser;
@@ -29,7 +31,7 @@ namespace Api.Controllers
         {
             await DispatchAsync(command);
 
-            return Ok();
+            return Ok(ApiResponse.Success());
         }
 
         [HttpPost("sign-in")]
@@ -37,7 +39,7 @@ namespace Api.Controllers
         {
             await DispatchAsync(command);
 
-            return Ok(command.Token);
+            return Ok(ApiResponse<TokenModel>.Success(command.Token));
         }
 
         [HttpPost("refresh-token")]
@@ -45,7 +47,7 @@ namespace Api.Controllers
         {
             await DispatchAsync(command);
 
-            return Ok(command.Token);
+            return Ok(ApiResponse<TokenModel>.Success(command.Token));
         }
 
         [HttpPost("refresh-token/{refresh}/revoke")]
@@ -55,7 +57,7 @@ namespace Api.Controllers
 
             await DispatchAsync(command);
 
-            return Ok();
+            return Ok(ApiResponse.Success());
         }
 
         [HttpPost("recovery-access")]
@@ -63,7 +65,7 @@ namespace Api.Controllers
         {
             await DispatchAsync(command);
 
-            return Ok();
+            return Ok(ApiResponse.Success());
         }
 
         [HttpPut("change-credentials")]
@@ -71,7 +73,7 @@ namespace Api.Controllers
         {
             await DispatchAsync(command);
 
-            return Ok();
+            return Ok(ApiResponse.Success());
         }
 
         [HttpPut("recovery-access/password")]
@@ -79,7 +81,7 @@ namespace Api.Controllers
         {
             await DispatchAsync(command);
 
-            return Ok();
+            return Ok(ApiResponse.Success());
         }
     }
 }

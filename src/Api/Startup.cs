@@ -11,6 +11,8 @@ using FluentValidation.AspNetCore;
 using Core.Types;
 using System.Reflection;
 using Api.Middlewares;
+using Api.ActionFilters;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Api
 {
@@ -29,6 +31,14 @@ namespace Api
             services.AddControllers().AddFluentValidation(s =>
             {
                 s.RegisterValidatorsFromAssemblyContaining<Startup>();
+            });
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(FVFilter));
+            });
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
             });
             services.AddSwaggerGen(c =>
             {
