@@ -17,6 +17,8 @@ namespace Infrastructure.Persistance.Configurations
                 .HasForeignKey(x => x.UserId);
             builder.HasMany(x => x.Movies)
                 .WithOne(y => y.Room);
+            builder.HasMany(x => x.Chat)
+                .WithOne(y => y.Room);
         }
     }
 }
