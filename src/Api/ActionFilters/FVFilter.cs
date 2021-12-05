@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace Api.ActionFilters
 {
@@ -16,7 +17,11 @@ namespace Api.ActionFilters
             if (!context.ModelState.IsValid)
             {
                 var errors = context.ModelState.Select(x =>
-                    new FV_Error { FieldName = x.Key, FieldErrors = x.Value.Errors.Select(err => err.ErrorMessage) }
+                    new ResponseError 
+                    { 
+                        Key = JsonNamingPolicy.CamelCase.ConvertName(x.Key), 
+                        Messages = x.Value.Errors.Select(err => err.ErrorMessage) 
+                    }
                 );
 
                 context.Result = new JsonResult(ApiResponse.Failure(errors, 400))

@@ -9,16 +9,21 @@ namespace Api.Models
     {
         public bool IsSuccess { get; set; } = false;
         public int StatusCode { get; set; } = 500;
-        public IEnumerable<FV_Error> Errors { get; set; } = new FV_Error[0];
+        public IEnumerable<ResponseError> Errors { get; set; } = new ResponseError[0];
 
         public static ApiResponse Success(int code = 200)
         {
             return new ApiResponse { IsSuccess = true, StatusCode = code };
         }
 
-        public static ApiResponse Failure(IEnumerable<FV_Error> errors, int code = 500)
+        public static ApiResponse Failure(IEnumerable<ResponseError> errors, int code = 500)
         {
             return new ApiResponse { IsSuccess = false, StatusCode = code, Errors = errors };
+        }
+
+        public static ApiResponse ServerError()
+        {
+            return new ApiResponse { IsSuccess = false, StatusCode = 500, Errors = ResponseError.ServerError() };
         }
 
     }
@@ -36,9 +41,26 @@ namespace Api.Models
     /// <summary>
     /// You can move this class somewhere else if you want lol 
     /// </summary>
-    public class FV_Error
+    public class ResponseError
     {
-        public string FieldName { get; set; }
-        public IEnumerable<string> FieldErrors { get; set; }
+        /// <summary>
+        /// Use this as Field name for form validation 
+        /// </summary>
+        public string Key { get; set; }
+        /// <summary>
+        /// Use this as Field errors for form validation
+        /// </summary>
+        public IEnumerable<string> Messages { get; set; }
+
+        public static ResponseError Error(string key, string message) =>
+            new ResponseError { Key = key, Messages = new string[] { message } };
+
+        public static IEnumerable<ResponseError> ServerError(string message = "Something unexpected have happend.")
+        {
+            return new ResponseError[] 
+            {
+                new ResponseError { Key = "Server", Messages = new string[] { message } }
+            };
+        }
     }
 }

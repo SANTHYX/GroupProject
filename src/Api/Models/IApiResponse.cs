@@ -4,7 +4,7 @@ namespace Api.Models
 {
     public interface IApiResponse
     {
-        IEnumerable<FV_Error> Errors { get; set; }
+        IEnumerable<ResponseError> Errors { get; set; }
         bool IsSuccess { get; set; }
         int StatusCode { get; set; }
     }
