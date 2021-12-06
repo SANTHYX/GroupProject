@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Application.Commons.Validators.Identity
 {
-    class RecoveryAccessValidator : AbstractValidator<RecoveryAccess>, Core.Types.IValidator
+    class RecoveryAccessValidator : AbstractValidator<RecoveryAccess>
     {
         public RecoveryAccessValidator()
         {

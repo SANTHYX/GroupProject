@@ -1,5 +1,4 @@
 ﻿using Application.Commons.Validators.Identity;
-using Core.Types;
 using FluentValidation.AspNetCore;
 using Infrastructure.Options;
 using Infrastructure.Persistance;

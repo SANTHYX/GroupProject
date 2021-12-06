@@ -12,6 +12,7 @@ namespace Infrastructure.IoC
             builder.RegisterModule<CQRSModule>();
             builder.RegisterModule<SecurityModule>();
             builder.RegisterModule<ProvidersModule>();
+            builder.RegisterModule<ToolsModule>();
         }
     }
 }

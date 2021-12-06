@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Application.Commons.Validators.Identity
 {
-    public class SignInValidator : AbstractValidator<SignIn>, Core.Types.IValidator
+    public class SignInValidator : AbstractValidator<SignIn>
     {
         public SignInValidator()
         {

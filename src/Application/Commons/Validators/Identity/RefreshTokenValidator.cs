@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Application.Commons.Validators.Identity
 {
-    public class RefreshTokenValidator : AbstractValidator<RefreshToken>, Core.Types.IValidator
+    public class RefreshTokenValidator : AbstractValidator<RefreshToken>
     {
         public RefreshTokenValidator()
         {

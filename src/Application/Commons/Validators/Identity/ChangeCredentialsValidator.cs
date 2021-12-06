@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Application.Commons.Validators.Identity
 {
-    public class ChangeCredentialsValidator : AbstractValidator<ChangeCreedentials>, Core.Types.IValidator
+    public class ChangeCredentialsValidator : AbstractValidator<ChangeCreedentials>
     {
         public ChangeCredentialsValidator()
         {

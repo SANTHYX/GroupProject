@@ -10,6 +10,7 @@ namespace Infrastructure.Persistance
         public DbSet<IdentityToken> Tokens { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Viewer> Viewers { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

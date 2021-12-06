@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Application.Commons.Validators.Identity
 {
-    public class SetPasswordAtRecoveryValidation : AbstractValidator<SetPasswordAtRecovery>, Core.Types.IValidator
+    public class SetPasswordAtRecoveryValidation : AbstractValidator<SetPasswordAtRecovery>
     {
         public SetPasswordAtRecoveryValidation()
         {
