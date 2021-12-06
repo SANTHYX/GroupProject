@@ -4,6 +4,7 @@ using Core.Domain;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Application.Rooms.Commands.AddUsersToRoom
 {
@@ -25,7 +26,12 @@ namespace Application.Rooms.Commands.AddUsersToRoom
             if (room.UserId != command.UserId)
                 throw new UnauthorizedAccessException("You are not authorized to perform that operation");
 
-            var viewers = command.SelectedUsers as ICollection<Viewer>;
+            var newViewers = command.SelectedUsers as ICollection<Viewer>;
+            
+            room.Viewers.Union(newViewers);
+
+            _unitOfWork.Room.Update(room);
+            await _unitOfWork.CommitAsync();
         }
         
     }
