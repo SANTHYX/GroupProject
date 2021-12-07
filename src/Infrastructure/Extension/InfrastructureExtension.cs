@@ -17,12 +17,14 @@ namespace Infrastructure.Extension
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<SecuritySettings>(configuration.GetSection(SecuritySettings.Section));
+
             services.AddDbContext<DataContext>(x => 
             {
                 x.UseNpgsql(configuration.GetConnectionString("MovieDbConnection"),
                     opt => opt.MigrationsAssembly("Infrastructure"));
                 x.EnableDetailedErrors();
             });
+
             services.AddFluentValidation(cfg =>
                 cfg.RegisterValidatorsFromAssemblyContaining<SignUpValidator>());
 
@@ -31,8 +33,7 @@ namespace Infrastructure.Extension
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-               .AddJwtBearer(x =>
+            }).AddJwtBearer(x =>
                {
                    x.TokenValidationParameters = new TokenValidationParameters
                    {
@@ -42,7 +43,7 @@ namespace Infrastructure.Extension
                        RequireExpirationTime = true,
                        ValidateLifetime = true,
                        IssuerSigningKey = new SymmetricSecurityKey(
-                           Encoding.UTF8.GetBytes(configuration.GetSection("Security:Key").Value)),
+                           Encoding.UTF8.GetBytes(configuration.GetSection("AuToken:Key").Value)),
                        ClockSkew = TimeSpan.Zero
                    };
                });
