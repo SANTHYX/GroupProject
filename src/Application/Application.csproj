@@ -21,6 +21,7 @@
     <Folder Include="Movies\Queries\GetMovie\Dto\NestedModels\" />
     <Folder Include="Rooms\Queries\GetRoom\" />
     <Folder Include="Users\Commands\AddToFriends\" />
+    <Folder Include="Viewer\Command\JoinToPublicRoom\" />
   </ItemGroup>
 
 </Project>

@@ -3,8 +3,8 @@ using Application.Commons.Persistance;
 using Core.Domain;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace Application.Rooms.Commands.AddUsersToRoom
 {
@@ -17,6 +17,11 @@ namespace Application.Rooms.Commands.AddUsersToRoom
             _unitOfWork = unitOfWork;
         }
 
+        /*
+         * TODO:
+         * 1) Validate room
+         * 2) Check if 
+         */
         public async Task HandleAsync(AddUsersToRoom command)
         {
             var room = await _unitOfWork.Room.GetById(command.RoomId);
@@ -26,13 +31,15 @@ namespace Application.Rooms.Commands.AddUsersToRoom
             if (room.UserId != command.UserId)
                 throw new UnauthorizedAccessException("You are not authorized to perform that operation");
 
-            var newViewers = command.SelectedUsers as ICollection<Viewer>;
-            
-            room.Viewers.Union(newViewers);
+            ICollection<User> selectedUsers = command.SelectedUsers as ICollection<User>;
+            ICollection<Viewer> viewers = new Collection<Viewer>();
 
-            _unitOfWork.Room.Update(room);
-            await _unitOfWork.CommitAsync();
+            foreach (var user in selectedUsers)
+            {
+                viewers.Add(new(user));
+            }
+
+            Console.WriteLine($"Done");
         }
-        
     }
 }

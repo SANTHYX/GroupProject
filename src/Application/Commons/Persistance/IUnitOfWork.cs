@@ -9,6 +9,7 @@ namespace Application.Commons.Persistance
         public ITokenRepository Token { get; }
         public IRoomRepository Room { get; }
         public IMovieRepository Movie { get; }
+        public IViewerRepository Viewer { get; }
         public Task CommitAsync();
     }
 }

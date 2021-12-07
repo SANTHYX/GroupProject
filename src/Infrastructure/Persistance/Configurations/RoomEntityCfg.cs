@@ -9,16 +9,24 @@ namespace Infrastructure.Persistance.Configurations
         public void Configure(EntityTypeBuilder<Room> builder)
         {
             builder.HasKey(x => x.Id);
+
             builder.Property(x => x.Name)
                 .HasMaxLength(50)
                 .IsRequired();
+
             builder.HasOne(x => x.User)
                 .WithMany(y => y.Rooms)
                 .HasForeignKey(x => x.UserId);
+
             builder.HasMany(x => x.Movies)
                 .WithOne(y => y.Room);
+
             builder.HasMany(x => x.Chat)
                 .WithOne(y => y.Room);
+
+            builder.HasMany(x => x.Viewers)
+                .WithMany(y => y.Rooms)
+                .UsingEntity(t => t.ToTable("Session"));
         }
     }
 }

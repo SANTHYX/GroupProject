@@ -2,7 +2,10 @@
 using Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Collections;
 
 namespace Infrastructure.Persistance.Repositories
 {
@@ -34,5 +37,8 @@ namespace Infrastructure.Persistance.Repositories
         {
             _context.Update(room);
         }
+
+        public async Task<bool> IsContainAnyOfGivenViewers(Guid id, ICollection<Viewer> viewers)
+            => await _context.Rooms.AnyAsync(x => x.Id == id && x.Viewers.Intersect(viewers) != null);
     }
 }

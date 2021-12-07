@@ -1,5 +1,6 @@
 ﻿using Core.Domain;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Core.Commons.Repositories
@@ -10,5 +11,6 @@ namespace Core.Commons.Repositories
         Task<Room> GetByUserId(Guid userId);
         Task AddAsync(Room room);
         void Update(Room room);
+        Task<bool> IsContainAnyOfGivenViewers(Guid id, ICollection<Viewer> viewers);
     }
 }

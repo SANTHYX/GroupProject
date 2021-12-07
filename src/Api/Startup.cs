@@ -8,8 +8,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Infrastructure.Extension;
 using FluentValidation.AspNetCore;
-using Core.Types;
-using System.Reflection;
 using Api.Middlewares;
 using Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;

@@ -13,6 +13,7 @@ namespace Infrastructure.Persistance
         public ITokenRepository Token { get; }
         public IRoomRepository Room { get; }
         public IMovieRepository Movie { get; }
+        public IViewerRepository Viewer { get; }
 
         public UnitOfWork(DataContext context)
         {
@@ -21,6 +22,7 @@ namespace Infrastructure.Persistance
             Token = new TokenRepository(context);
             Room = new RoomRepository(context);
             Movie = new MovieRepository(context);
+            Viewer = new ViewerRepository(context);
         }
 
         public async Task CommitAsync(CancellationToken cancellationToken)

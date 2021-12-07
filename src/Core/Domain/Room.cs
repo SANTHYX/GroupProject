@@ -10,7 +10,6 @@ namespace Core.Domain
         public string Accessability { get; set; }
         public Guid UserId { get; set; }
         public User User { get; set; }
-        public Guid ViewerId { get; set; }
         public ICollection<Viewer> Viewers { get; set; }
         public ICollection<Message> Chat { get; set; }
         public ICollection<Movie> Movies { get; set; }
