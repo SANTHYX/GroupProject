@@ -12,6 +12,8 @@ using Api.Middlewares;
 using Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using Api.Extensions;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json.Converters;
 
 namespace Api
 {

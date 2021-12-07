@@ -28,6 +28,8 @@ namespace Infrastructure.Extension
             services.AddFluentValidation(cfg =>
                 cfg.RegisterValidatorsFromAssemblyContaining<SignUpValidator>());
 
+            services.AddSwaggerGenNewtonsoftSupport();
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
