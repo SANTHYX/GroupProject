@@ -31,7 +31,7 @@ namespace Application.Rooms.Commands.AddUsersToRoom
             if (room.UserId != command.UserId)
                 throw new UnauthorizedAccessException("You are not authorized to perform that operation");
 
-            ICollection<User> selectedUsers = command.SelectedUsers as ICollection<User>;
+            ICollection<User> selectedUsers = (ICollection<User>)command.SelectedUsers ;
             ICollection<Viewer> viewers = new Collection<Viewer>();
 
             foreach (var user in selectedUsers)
