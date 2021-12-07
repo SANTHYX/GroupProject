@@ -11,6 +11,7 @@ using FluentValidation.AspNetCore;
 using Api.Middlewares;
 using Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
+using Api.Extensions;
 
 namespace Api
 {
@@ -38,10 +39,7 @@ namespace Api
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
-            });
+            services.AddSwagger();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
