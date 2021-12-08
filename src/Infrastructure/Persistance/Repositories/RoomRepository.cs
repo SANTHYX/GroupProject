@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
-using System.Collections;
 
 namespace Infrastructure.Persistance.Repositories
 {
@@ -28,6 +27,9 @@ namespace Infrastructure.Persistance.Repositories
         public async Task<Room> GetByUserId(Guid userId)
             => await _context.Rooms.FirstOrDefaultAsync(x => x.UserId == userId);
 
+        public async Task<ICollection<Room>> GetAllPublicAsync()
+            => await _context.Rooms.Where(x => x.Accessability == "public").ToListAsync();
+
         public async Task AddAsync(Room room)
         {
             await _context.AddAsync(room);
@@ -37,8 +39,5 @@ namespace Infrastructure.Persistance.Repositories
         {
             _context.Update(room);
         }
-
-        public async Task<bool> IsContainAnyOfGivenViewers(Guid id, ICollection<Viewer> viewers)
-            => await _context.Rooms.AnyAsync(x => x.Id == id && x.Viewers.Intersect(viewers) != null);
     }
 }

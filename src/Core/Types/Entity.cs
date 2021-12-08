@@ -4,7 +4,7 @@ namespace Core.Types
 {
     public abstract class Entity : IEntity
     {
-        public Guid Id { get; }
+        public Guid Id { get; set; }
 
         public Entity()
         {

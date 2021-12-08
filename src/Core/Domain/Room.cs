@@ -1,6 +1,7 @@
 ﻿using Core.Types;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Core.Domain
 {
@@ -24,7 +25,7 @@ namespace Core.Domain
             Name = name;
             Accessability = accessability;
             User = user ?? throw new ArgumentNullException(nameof(user),
-                "Cannot bind Room with null User instance");
+                "Cannot bind Room with null User instance");         
         }
     }
 }

@@ -5,15 +5,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using Infrastructure.Extension;
 using FluentValidation.AspNetCore;
 using Api.Middlewares;
 using Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using Api.Extensions;
-using System.Text.Json.Serialization;
-using Newtonsoft.Json.Converters;
 
 namespace Api
 {

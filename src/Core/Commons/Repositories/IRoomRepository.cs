@@ -9,8 +9,8 @@ namespace Core.Commons.Repositories
     {
         Task<Room> GetById(Guid id);
         Task<Room> GetByUserId(Guid userId);
+        Task<ICollection<Room>> GetAllPublicAsync();
         Task AddAsync(Room room);
         void Update(Room room);
-        Task<bool> IsContainAnyOfGivenViewers(Guid id, ICollection<Viewer> viewers);
     }
 }

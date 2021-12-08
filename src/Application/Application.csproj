@@ -18,10 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Commons\Extensions\Validations\" />
     <Folder Include="Movies\Queries\GetMovie\Dto\NestedModels\" />
     <Folder Include="Rooms\Queries\GetRoom\" />
     <Folder Include="Users\Commands\AddToFriends\" />
-    <Folder Include="Viewer\Command\JoinToPublicRoom\" />
+    <Folder Include="Viewers\Command\JoinToPublicRoom\" />
   </ItemGroup>
 
 </Project>

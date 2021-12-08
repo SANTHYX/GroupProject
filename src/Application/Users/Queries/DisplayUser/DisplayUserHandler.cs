@@ -16,9 +16,12 @@ namespace Application.Users.Queries.DisplayUser
 
         public async Task<DisplayUserDto> HandleAsync(DisplayUser query)
         {
-            return new()
+            var user = await _unitOfWork.User.GetById(query.Id);
+
+            return user == null ? null : new()
             {
-                
+                Id = user.Id,
+                NickName = user.NickName
             };
         }
     }
