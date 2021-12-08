@@ -39,5 +39,9 @@ namespace Infrastructure.Persistance.Repositories
         {
             _context.Update(room);
         }
+
+        public async Task<bool> IsMembersOfRoomAsync(Guid id, ICollection<Viewer> viewers)
+            => await _context.Rooms
+                .AnyAsync(x => x.Id == id && x.Viewers.Intersect(viewers) != null);
     }
 }

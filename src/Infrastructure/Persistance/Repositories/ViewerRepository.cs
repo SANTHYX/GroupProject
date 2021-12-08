@@ -28,6 +28,6 @@ namespace Infrastructure.Persistance.Repositories
         public async Task AddManyAsync(ICollection<Viewer> viewers)
         {
             await _context.Viewers.AddRangeAsync(viewers);
-        }
+        }            
     }
 }

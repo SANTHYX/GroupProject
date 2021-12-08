@@ -12,5 +12,6 @@ namespace Core.Commons.Repositories
         Task<ICollection<Room>> GetAllPublicAsync();
         Task AddAsync(Room room);
         void Update(Room room);
+        Task<bool> IsMembersOfRoomAsync(Guid id, ICollection<Viewer> viewers);
     }
 }
