@@ -42,6 +42,8 @@ namespace Infrastructure.Persistance.Repositories
 
         public async Task<bool> IsMembersOfRoomAsync(Guid id, ICollection<Viewer> viewers)
             => await _context.Rooms
-                .AnyAsync(x => x.Id == id && x.Viewers.Intersect(viewers) != null);
+                .Include(x => x.Viewers.Where(y => viewers.Contains(y)))
+                .AnyAsync(z => z.Id == id && z.Viewers != null);
+                
     }
 }

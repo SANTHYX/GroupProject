@@ -20,7 +20,7 @@ namespace Infrastructure.Persistance.Repositories
         public async Task<Viewer> GetById(Guid id)
             => await _context.Viewers.FirstOrDefaultAsync(x => x.Id == id);
 
-        public async Task<ICollection<Viewer>> GetAllByUserIdCollection(ICollection<Guid> userIdCollection) 
+        public async Task<ICollection<Viewer>> GetAllByUserIdCollection(IEnumerable<Guid> userIdCollection) 
             => await _context.Viewers
             .Where(x => userIdCollection.Contains(x.UserId))
             .ToListAsync();

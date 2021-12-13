@@ -31,7 +31,7 @@ namespace Infrastructure.Persistance.Repositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-        public async Task<ICollection<User>> GetAllByIdCollection(ICollection<Guid> idCollection)
+        public async Task<ICollection<User>> GetAllByIdCollection(IEnumerable<Guid> idCollection)
             => await _context.Users
             .Where(x => idCollection.Contains(x.Id))
             .ToListAsync();

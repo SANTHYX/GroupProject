@@ -27,12 +27,13 @@ namespace Application.Rooms.Commands.AddUsersToRoom
             if (room.UserId != command.UserId)
                 throw new UnauthorizedAccessException("You are not authorized to perform that operation");
 
-            var userIdCollection = command.SelectedUsers.Select(x => x.Id) as Collection<Guid>;
+            var userIdCollection = command.SelectedUsers.Select(x => x.Id);
             var viewers = await _unitOfWork.Viewer.GetAllByUserIdCollection(userIdCollection);
+            var isMembersOfRoom = await _unitOfWork.Room.IsMembersOfRoomAsync(room.Id, viewers);
 
-            if (await _unitOfWork.Room.IsMembersOfRoomAsync(room.Id, viewers))
+            if (isMembersOfRoom)
                 throw new Exception("In selected group of users one of members are already room member");
-            
+           
             var users = await _unitOfWork.User.GetAllByIdCollection(userIdCollection);
 
             viewers = new Collection<Viewer>();
@@ -45,7 +46,10 @@ namespace Application.Rooms.Commands.AddUsersToRoom
 
             await _unitOfWork.Viewer.AddManyAsync(viewers);
 
-            viewers.ForEach(x => { room.Viewers.Add(x); });
+            viewers.ForEach(x => 
+            {
+                room.Viewers.Add(x);
+            });
 
             _unitOfWork.Room.Update(room);
             await _unitOfWork.CommitAsync();
