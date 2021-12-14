@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Persistance.Migrations
 {
-    public partial class MovieMigration : Migration
+    public partial class MovieDbMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -122,21 +122,21 @@ namespace Infrastructure.Persistance.Migrations
                 name: "Session",
                 columns: table => new
                 {
-                    RoomsId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ViewersId = table.Column<Guid>(type: "uuid", nullable: false)
+                    RoomId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ViewerId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Session", x => new { x.RoomsId, x.ViewersId });
+                    table.PrimaryKey("PK_Session", x => new { x.RoomId, x.ViewerId });
                     table.ForeignKey(
-                        name: "FK_Session_Rooms_RoomsId",
-                        column: x => x.RoomsId,
+                        name: "FK_Session_Rooms_RoomId",
+                        column: x => x.RoomId,
                         principalTable: "Rooms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Session_Viewers_ViewersId",
-                        column: x => x.ViewersId,
+                        name: "FK_Session_Viewers_ViewerId",
+                        column: x => x.ViewerId,
                         principalTable: "Viewers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -158,9 +158,9 @@ namespace Infrastructure.Persistance.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Session_ViewersId",
+                name: "IX_Session_ViewerId",
                 table: "Session",
-                column: "ViewersId");
+                column: "ViewerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tokens_UserId",

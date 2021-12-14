@@ -22,13 +22,16 @@ namespace Infrastructure.Persistance.Repositories
             .AsNoTracking()
             .Include(x => x.Chat)
             .Include(x => x.Movies)
+            .Include(x => x.Viewers)
             .FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<Room> GetByUserId(Guid userId)
             => await _context.Rooms.FirstOrDefaultAsync(x => x.UserId == userId);
 
         public async Task<ICollection<Room>> GetAllPublicAsync()
-            => await _context.Rooms.Where(x => x.Accessability == "public").ToListAsync();
+            => await _context.Rooms
+            .Where(x => x.Accessability == "public")
+            .ToListAsync();
 
         public async Task AddAsync(Room room)
         {
@@ -42,8 +45,6 @@ namespace Infrastructure.Persistance.Repositories
 
         public async Task<bool> IsMembersOfRoomAsync(Guid id, ICollection<Viewer> viewers)
             => await _context.Rooms
-                .Include(x => x.Viewers.Where(y => viewers.Contains(y)))
-                .AnyAsync(z => z.Id == id && z.Viewers != null);
-                
+                .AnyAsync(x => x.Id == id && x.Viewers.Any(z => viewers.Contains(z)));          
     }
 }

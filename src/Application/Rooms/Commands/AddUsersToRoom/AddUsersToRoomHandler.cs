@@ -31,8 +31,8 @@ namespace Application.Rooms.Commands.AddUsersToRoom
             var viewers = await _unitOfWork.Viewer.GetAllByUserIdCollection(userIdCollection);
             var isMembersOfRoom = await _unitOfWork.Room.IsMembersOfRoomAsync(room.Id, viewers);
 
-            if (isMembersOfRoom)
-                throw new Exception("In selected group of users one of members are already room member");
+           if (isMembersOfRoom)
+                throw new Exception("In selected group of users one of them are already room member");
            
             var users = await _unitOfWork.User.GetAllByIdCollection(userIdCollection);
 

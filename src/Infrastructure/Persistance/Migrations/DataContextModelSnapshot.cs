@@ -146,17 +146,17 @@ namespace Infrastructure.Persistance.Migrations
                     b.ToTable("Viewers");
                 });
 
-            modelBuilder.Entity("RoomViewer", b =>
+            modelBuilder.Entity("Session", b =>
                 {
-                    b.Property<Guid>("RoomsId")
+                    b.Property<Guid>("RoomId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("ViewersId")
+                    b.Property<Guid>("ViewerId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("RoomsId", "ViewersId");
+                    b.HasKey("RoomId", "ViewerId");
 
-                    b.HasIndex("ViewersId");
+                    b.HasIndex("ViewerId");
 
                     b.ToTable("Session");
                 });
@@ -214,17 +214,17 @@ namespace Infrastructure.Persistance.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("RoomViewer", b =>
+            modelBuilder.Entity("Session", b =>
                 {
                     b.HasOne("Core.Domain.Room", null)
                         .WithMany()
-                        .HasForeignKey("RoomsId")
+                        .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Core.Domain.Viewer", null)
                         .WithMany()
-                        .HasForeignKey("ViewersId")
+                        .HasForeignKey("ViewerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

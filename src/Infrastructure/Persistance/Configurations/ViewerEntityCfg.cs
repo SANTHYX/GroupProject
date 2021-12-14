@@ -1,6 +1,7 @@
 ﻿using Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Collections.Generic;
 
 namespace Infrastructure.Persistance.Configurations
 {
@@ -12,7 +13,15 @@ namespace Infrastructure.Persistance.Configurations
 
             builder.HasMany(x => x.Rooms)
                 .WithMany(y => y.Viewers)
-                .UsingEntity(t => t.ToTable("Session"));
+                .UsingEntity<Dictionary<string, object>>
+                    ("Session",
+                        j => j.HasOne<Room>()
+                            .WithMany()
+                            .HasForeignKey("RoomId"),
+                        j => j.HasOne<Viewer>()
+                            .WithMany()
+                            .HasForeignKey("ViewerId")
+                    );
         }
     }
 }

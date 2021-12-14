@@ -20,8 +20,10 @@
   <ItemGroup>
     <Folder Include="Commons\Extensions\Validations\" />
     <Folder Include="Movies\Queries\GetMovie\Dto\NestedModels\" />
-    <Folder Include="Rooms\Queries\GetRoom\" />
+    <Folder Include="Rooms\Queries\GetRoom\Hub\" />
     <Folder Include="Users\Commands\AddToFriends\" />
+    <Folder Include="Users\Queries\BrowseFriends\" />
+    <Folder Include="Users\Queries\BrowseFirendsThatAreNotViewersOfRoom\" />
     <Folder Include="Viewers\Command\JoinToPublicRoom\" />
   </ItemGroup>
 

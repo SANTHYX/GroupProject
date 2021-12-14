@@ -1,7 +1,6 @@
 ﻿using Core.Types;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Core.Domain
 {
