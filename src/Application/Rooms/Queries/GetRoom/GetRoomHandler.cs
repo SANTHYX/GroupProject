@@ -28,7 +28,8 @@ namespace Application.Rooms.Queries.GetRoom
                 Chat = room.Chat?.Select(x => new MessageModel
                 {
                     Value = x.Value
-                }) as Collection<MessageModel>,
+                }) 
+                as Collection<MessageModel>,
             };
         }
     }

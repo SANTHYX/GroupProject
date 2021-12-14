@@ -1,13 +1,14 @@
 ﻿using Application.Commons.CQRS.Query;
+using Application.Commons.Dto;
 using Application.Commons.Persistance;
 using Application.Rooms.Queries.BrowseOwnedRooms.Dto;
-using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Application.Rooms.Queries.BrowseOwnedRooms
 {
-    public class BrowseOwnedRoomsHandler : IQueryHandler<ICollection<OwnedRoomDto>, BrowseOwnedRooms>
+    public class BrowseOwnedRoomsHandler : IQueryHandler<PageDto<OwnedRoomDto>, BrowseOwnedRooms>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -16,9 +17,20 @@ namespace Application.Rooms.Queries.BrowseOwnedRooms
             _unitOfWork = unitOfWork;
         }
 
-        public Task<ICollection<OwnedRoomDto>> HandleAsync(BrowseOwnedRooms query)
+        public async Task<PageDto<OwnedRoomDto>> HandleAsync(BrowseOwnedRooms query)
         {
-            throw new NotImplementedException();
+            var ownedRoomsPage = await _unitOfWork.Room.GetAllAsync(x => x.UserId == query.UserId,query);
+
+            return new()
+            {
+                Items = ownedRoomsPage.Items?.Select(x => new OwnedRoomDto
+                {
+                    
+                }) as Collection<OwnedRoomDto>,
+                CurrentPage = ownedRoomsPage.CurrentPage,
+                TotalPages = ownedRoomsPage.TotalPages,
+                FoundResults = ownedRoomsPage.FoundResults,
+            };
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Application.Rooms.Queries.BrowseOwnedRooms
 {
-    public record BrowseOwnedRooms : IQuery<BrowseOwnedRooms>
+    public record BrowseOwnedRooms : AuthenticatedQuery<BrowseOwnedRooms>
     {
     }
 }

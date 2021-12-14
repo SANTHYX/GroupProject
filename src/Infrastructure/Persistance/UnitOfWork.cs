@@ -1,5 +1,7 @@
 ﻿using Application.Commons.Persistance;
 using Core.Commons.Repositories;
+using Core.Domain;
+using Core.Types;
 using Infrastructure.Persistance.Repositories;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,21 +17,19 @@ namespace Infrastructure.Persistance
         public IMovieRepository Movie { get; }
         public IViewerRepository Viewer { get; }
 
-        public UnitOfWork(DataContext context)
+        public UnitOfWork(DataContext context, IPage<Room> page)
         {
             _context = context;
             User = new UserRepository(context);
             Token = new TokenRepository(context);
-            Room = new RoomRepository(context);
+            Room = new RoomRepository(context, page);
             Movie = new MovieRepository(context);
             Viewer = new ViewerRepository(context);
         }
 
         public async Task CommitAsync(CancellationToken cancellationToken)
-        {
-            
-            await _context.SaveChangesAsync(cancellationToken);
-            
+        {      
+            await _context.SaveChangesAsync(cancellationToken);        
         }
 
         public async Task CommitAsync()

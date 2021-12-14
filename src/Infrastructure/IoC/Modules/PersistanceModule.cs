@@ -33,6 +33,11 @@ namespace Infrastructure.IoC.Modules
             builder.RegisterType<UnitOfWork>()
                 .As<IUnitOfWork>()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterAssemblyTypes(assembly)
+                .Where(x => x.IsAssignableTo(typeof(IPage<>)))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();            
         }
     }
 }

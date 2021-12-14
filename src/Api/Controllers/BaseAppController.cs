@@ -33,6 +33,13 @@ namespace Api.Controllers
         }
 
         protected async Task<TResult> SendAsync<TResult, QSource>(QSource query) where QSource : class, IQuery<TResult>
-            => await _queryDispatcher.SendAsync<TResult, QSource>(query);
+        {
+            if (query is AuthenticatedQuery<TResult> authenticatedQuery)
+            {
+                authenticatedQuery.UserId = CurrentUserId;
+            }
+
+            return await _queryDispatcher.SendAsync<TResult, QSource>(query);
+        }
     }
 }

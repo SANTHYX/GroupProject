@@ -36,7 +36,7 @@ namespace Infrastructure.Persistance.Repositories
         { 
             var data = _context.Rooms.Where(expression);
 
-            return await _page.GetPagedResultAsync(data, query);
+            return await _page.GetPagedResultAsync(data, query.Page, query.Results);
         }
 
         public async Task AddAsync(Room room)
