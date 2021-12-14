@@ -11,9 +11,9 @@ namespace Core.Factories
         {
             return accessability switch
             {
-                (Accessability.Public) => new(name ,nameof(Accessability.Public).ToLower(), user),
-                (Accessability.Private) => new(name, nameof(Accessability.Private).ToLower(), user),
-                (Accessability.OnlyFriends) => new(name, nameof(Accessability.OnlyFriends).ToLower(), user),
+                (Accessability.Public) => new(name ,nameof(Accessability.Public), user),
+                (Accessability.Private) => new(name, nameof(Accessability.Private), user),
+                (Accessability.OnlyFriends) => new(name, nameof(Accessability.OnlyFriends), user),
                 _ => throw new Exception("Invalid type of room"),
             };
         }

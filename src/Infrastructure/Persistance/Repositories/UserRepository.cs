@@ -28,8 +28,8 @@ namespace Infrastructure.Persistance.Repositories
 
         public async Task<User> GetAggregateById(Guid id)
             => await _context.Users
-                .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == id);
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<ICollection<User>> GetAllByIdCollection(IEnumerable<Guid> idCollection)
             => await _context.Users

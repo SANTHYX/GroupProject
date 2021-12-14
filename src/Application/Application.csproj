@@ -22,9 +22,7 @@
     <Folder Include="Movies\Queries\GetMovie\Dto\NestedModels\" />
     <Folder Include="Rooms\Queries\GetRoom\Hub\" />
     <Folder Include="Users\Commands\AddToFriends\" />
-    <Folder Include="Users\Queries\BrowseFriends\" />
-    <Folder Include="Users\Queries\BrowseFirendsThatAreNotViewersOfRoom\" />
-    <Folder Include="Viewers\Command\JoinToPublicRoom\" />
+    <Folder Include="Users\Queries\BrowseUsersToRoomWithNickName\" />
   </ItemGroup>
 
 </Project>
