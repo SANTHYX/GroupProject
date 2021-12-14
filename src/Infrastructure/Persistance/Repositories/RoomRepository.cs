@@ -6,16 +6,19 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Linq.Expressions;
+using Core.Types;
 
 namespace Infrastructure.Persistance.Repositories
 {
     public class RoomRepository : IRoomRepository
     {
         private readonly DataContext _context;
+        private readonly IPage<Room> _page;
 
-        public RoomRepository(DataContext context)
+        public RoomRepository(DataContext context, IPage<Room> page)
         {
             _context = context;
+            _page = page;
         }
 
         public async Task<Room> GetById(Guid id)
@@ -29,10 +32,12 @@ namespace Infrastructure.Persistance.Repositories
         public async Task<Room> GetByUserId(Guid userId)
             => await _context.Rooms.FirstOrDefaultAsync(x => x.UserId == userId);
 
-        public async Task<ICollection<Room>> GetAllAsync(Expression<Func<Room, bool>> expression)
-            => await _context.Rooms
-            .Where(expression)
-            .ToListAsync();
+        public async Task<IPage<Room>> GetAllAsync(Expression<Func<Room, bool>> expression, PagedQuery query)
+        { 
+            var data = _context.Rooms.Where(expression);
+
+            return await _page.GetPagedResultAsync(data, query);
+        }
 
         public async Task AddAsync(Room room)
         {
