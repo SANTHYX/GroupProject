@@ -1,6 +1,8 @@
 ﻿using Core.Domain;
+using Core.Types;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Core.Commons.Repositories
@@ -12,9 +14,10 @@ namespace Core.Commons.Repositories
         Task<User> GetByEmail(string email);
         Task<User> GetAggregateById(Guid id);
         Task<ICollection<User>> GetAllByIdCollection(IEnumerable<Guid> idCollection);
-        Task AddAsync(User user);
-        void Update(User user);
+        Task<Page<User>> GetAllAsync(Expression<Func<User, bool>> expression, PagedQuery query);
         Task<bool> IsExistWithMail(string email);
         Task<bool> IsExistWithLogin(string login);
+        Task AddAsync(User user);
+        void Update(User user);
     }
 }

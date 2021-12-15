@@ -1,12 +1,14 @@
 ﻿using Application.Commons.CQRS.Query;
 using Application.Commons.Persistance;
 using Application.Rooms.Queries.BrowseUserMembershipRooms.Dto;
-using System.Collections.Generic;
+using Core.Types;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Application.Rooms.Queries.BrowseUserMembershipRooms
 {
-    public class BrowseUserMembershipRoomsHandler : IQueryHandler<ICollection<MembershipRoomDto>, BrowseUserMembershipRooms>
+    public class BrowseUserMembershipRoomsHandler : IQueryHandler<Page<MembershipRoomDto>, BrowseUserMembershipRooms>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -15,9 +17,23 @@ namespace Application.Rooms.Queries.BrowseUserMembershipRooms
             _unitOfWork = unitOfWork;
         }
 
-        public Task<ICollection<MembershipRoomDto>> HandleAsync(BrowseUserMembershipRooms query)
+        public async Task<Page<MembershipRoomDto>> HandleAsync(BrowseUserMembershipRooms query)
         {
-            throw new System.NotImplementedException();
+            var roomsWithMembership = await _unitOfWork.Room.GetAllAsync(
+                x => x.Viewers.Any(x => x.UserId == query.UserId),
+                query);
+
+            return new()
+            {
+                Items = roomsWithMembership.Items?.Select(x => new MembershipRoomDto
+                {
+
+                })
+                as Collection<MembershipRoomDto>,
+                CurrentPage = roomsWithMembership.CurrentPage,
+                TotalPages = roomsWithMembership.TotalPages,
+                FoundResults = roomsWithMembership.FoundResults
+            };
         }
     }
 }

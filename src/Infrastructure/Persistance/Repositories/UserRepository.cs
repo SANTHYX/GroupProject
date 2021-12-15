@@ -1,9 +1,11 @@
 ﻿using Core.Commons.Repositories;
 using Core.Domain;
+using Core.Types;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Persistance.Repositories
@@ -11,10 +13,12 @@ namespace Infrastructure.Persistance.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly DataContext _context;
+        private readonly IPaging<User> _paging;
 
-        public UserRepository(DataContext context)
+        public UserRepository(DataContext context, IPaging<User> paging)
         {
             _context = context;
+            _paging = paging;
         }
 
         public async Task<User> GetById(Guid id) 
@@ -36,6 +40,21 @@ namespace Infrastructure.Persistance.Repositories
             .Where(x => idCollection.Contains(x.Id))
             .ToListAsync();
 
+        public async Task<Page<User>> GetAllAsync(Expression<Func<User, bool>> expression, PagedQuery query)
+        {
+            var result = _context.Users
+                .AsNoTracking()
+                .Where(expression);
+
+            return await _paging.GetPagedResultAsync(result, query.Page, query.Results);
+        }
+
+        public async Task<bool> IsExistWithMail(string email)
+            => await _context.Users.AnyAsync(x => x.Email == email);
+
+        public async Task<bool> IsExistWithLogin(string login)
+            => await _context.Users.AnyAsync(x => x.Login == login);
+
         public async Task AddAsync(User user)
         {
             await _context.Users.AddAsync(user);
@@ -45,11 +64,5 @@ namespace Infrastructure.Persistance.Repositories
         {
             _context.Users.Update(user);
         }
-
-        public async Task<bool> IsExistWithMail(string email)
-            => await _context.Users.AnyAsync(x => x.Email == email);
-
-        public async Task<bool> IsExistWithLogin(string login)
-            => await _context.Users.AnyAsync(x => x.Login == login);
     }
 }

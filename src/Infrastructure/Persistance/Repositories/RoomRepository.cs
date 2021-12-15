@@ -34,10 +34,17 @@ namespace Infrastructure.Persistance.Repositories
 
         public async Task<Page<Room>> GetAllAsync(Expression<Func<Room, bool>> expression, PagedQuery query)
         { 
-            var data = _context.Rooms.Where(expression);
+            var data = _context.Rooms
+                .AsNoTracking()
+                .Where(expression);
 
             return await _page.GetPagedResultAsync(data, query.Page, query.Results);
         }
+
+        public async Task<bool> IsMembersOfRoomAsync(Guid id, ICollection<Viewer> viewers)
+            => await _context.Rooms
+            .AsNoTracking()
+            .AnyAsync(x => x.Id == id && x.Viewers.Any(z => viewers.Contains(z)));
 
         public async Task AddAsync(Room room)
         {
@@ -48,8 +55,5 @@ namespace Infrastructure.Persistance.Repositories
         {
             _context.Update(room);
         }
-
-        public async Task<bool> IsMembersOfRoomAsync(Guid id, ICollection<Viewer> viewers)
-            => await _context.Rooms.AnyAsync(x => x.Id == id && x.Viewers.Any(z => viewers.Contains(z)));
     }
 }

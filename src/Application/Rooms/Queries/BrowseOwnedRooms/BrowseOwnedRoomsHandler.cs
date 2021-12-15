@@ -25,7 +25,8 @@ namespace Application.Rooms.Queries.BrowseOwnedRooms
             {
                 Items = ownedRoomsPage.Items?.Select(x => new OwnedRoomDto
                 {
-                    
+                    Id = x.Id,
+                    Name = x.Name
                 }) 
                 as Collection<OwnedRoomDto>,
                 CurrentPage = ownedRoomsPage.CurrentPage,

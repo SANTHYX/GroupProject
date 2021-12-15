@@ -13,6 +13,7 @@ namespace Infrastructure.IoC
             builder.RegisterModule<SecurityModule>();
             builder.RegisterModule<ProvidersModule>();
             builder.RegisterModule<ToolsModule>();
+            builder.RegisterModule<MappersModule>();
         }
     }
 }

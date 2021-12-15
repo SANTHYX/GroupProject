@@ -1,8 +1,10 @@
 ﻿using Application.Commons.CQRS.Query;
 using Application.Commons.Persistance;
 using Application.Rooms.Queries.BrowsePrivateRooms.Dto;
+using Core.Enums;
 using Core.Types;
-using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Application.Rooms.Queries.BrowsePrivateRooms
@@ -16,9 +18,23 @@ namespace Application.Rooms.Queries.BrowsePrivateRooms
             _unitOfWork = unitOfWork;
         }
 
-        public Task<Page<PrivateRoomDto>> HandleAsync(BrowsePrivateRooms query)
+        public async Task<Page<PrivateRoomDto>> HandleAsync(BrowsePrivateRooms query)
         {
-            throw new NotImplementedException();
+            var privateRooms = await _unitOfWork.Room.GetAllAsync(x => 
+                x.Accessability == nameof(Accessability.Private),query);
+
+            return new()
+            {
+                Items = privateRooms.Items?.Select(x => new PrivateRoomDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                })
+                as Collection<PrivateRoomDto>,
+                CurrentPage = privateRooms.CurrentPage,
+                TotalPages = privateRooms.TotalPages,
+                FoundResults = privateRooms.FoundResults
+            };
         }
     }
 }

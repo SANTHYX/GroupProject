@@ -13,13 +13,14 @@ namespace Infrastructure.Persistance.Repositories
         {
             _context = context;
         }
+
+        public async Task<IdentityToken> GetByRefreash(string refreash)
+            => await _context.Tokens.FirstOrDefaultAsync(x => x.Refresh == refreash);
+
         public async Task AddAsync(IdentityToken token)
         {
             await _context.Tokens.AddAsync(token);
         }
-
-        public async Task<IdentityToken> GetByRefreash(string refreash)
-            => await _context.Tokens.FirstOrDefaultAsync(x => x.Refresh == refreash);
 
         public void Update(IdentityToken token)
         {
