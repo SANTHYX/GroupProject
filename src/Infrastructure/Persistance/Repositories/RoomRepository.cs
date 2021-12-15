@@ -13,9 +13,9 @@ namespace Infrastructure.Persistance.Repositories
     public class RoomRepository : IRoomRepository
     {
         private readonly DataContext _context;
-        private readonly IPage<Room> _page;
+        private readonly IPaging<Room> _page;
 
-        public RoomRepository(DataContext context, IPage<Room> page)
+        public RoomRepository(DataContext context, IPaging<Room> page)
         {
             _context = context;
             _page = page;
@@ -32,7 +32,7 @@ namespace Infrastructure.Persistance.Repositories
         public async Task<Room> GetByUserId(Guid userId)
             => await _context.Rooms.FirstOrDefaultAsync(x => x.UserId == userId);
 
-        public async Task<IPage<Room>> GetAllAsync(Expression<Func<Room, bool>> expression, PagedQuery query)
+        public async Task<Page<Room>> GetAllAsync(Expression<Func<Room, bool>> expression, PagedQuery query)
         { 
             var data = _context.Rooms.Where(expression);
 

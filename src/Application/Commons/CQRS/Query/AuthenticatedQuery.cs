@@ -1,6 +1,6 @@
 ﻿using Core.Types;
+using Newtonsoft.Json;
 using System;
-using System.Text.Json.Serialization;
 
 namespace Application.Commons.CQRS.Query
 {

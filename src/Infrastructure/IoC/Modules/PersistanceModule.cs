@@ -3,6 +3,7 @@ using Autofac;
 using Core.Commons.Identity;
 using Core.Commons.Repositories;
 using Core.Types;
+using Infrastructure.Commons.Pagination;
 using Infrastructure.Persistance;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -34,10 +35,9 @@ namespace Infrastructure.IoC.Modules
                 .As<IUnitOfWork>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterAssemblyTypes(assembly)
-                .Where(x => x.IsAssignableTo(typeof(IPage<>)))
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope();            
+            builder.RegisterGeneric(typeof(Paging<>))
+                .As(typeof(IPaging<>))
+                .InstancePerLifetimeScope();
         }
     }
 }

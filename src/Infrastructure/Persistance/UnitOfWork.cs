@@ -17,12 +17,12 @@ namespace Infrastructure.Persistance
         public IMovieRepository Movie { get; }
         public IViewerRepository Viewer { get; }
 
-        public UnitOfWork(DataContext context, IPage<Room> page)
+        public UnitOfWork(DataContext context, IPaging<Room> roomPage)
         {
             _context = context;
             User = new UserRepository(context);
             Token = new TokenRepository(context);
-            Room = new RoomRepository(context, page);
+            Room = new RoomRepository(context, roomPage);
             Movie = new MovieRepository(context);
             Viewer = new ViewerRepository(context);
         }

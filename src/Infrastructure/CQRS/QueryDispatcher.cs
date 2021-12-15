@@ -24,12 +24,12 @@ namespace Infrastructure.CQRS
                 throw new ArgumentNullException(nameof(query), "Querry cannot be empty");
             }
 
-            _logger.LogInformation($"Querry { query.GetType().Name } is computing...");
+            _logger.LogInformation($"Querry [{ query.GetType().Name }] is computing...");
 
             var handler = _context.Resolve<IQueryHandler<TResult, QSource>>();
 
-            _logger.LogInformation($"Querry { query.GetType().Name  } computing has end," +
-                $" check your Http client for results");
+            _logger.LogInformation($"Querry [{ query.GetType().Name  }] computing has end," +
+                $" check your HTTP client for results");
 
             return await handler.HandleAsync(query);
         }

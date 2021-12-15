@@ -11,7 +11,7 @@ namespace Core.Commons.Repositories
     {
         Task<Room> GetById(Guid id);
         Task<Room> GetByUserId(Guid userId);
-        Task<IPage<Room>> GetAllAsync(Expression<Func<Room, bool>> expression, PagedQuery query);
+        Task<Page<Room>> GetAllAsync(Expression<Func<Room, bool>> expression, PagedQuery query);
         Task AddAsync(Room room);
         void Update(Room room);
         Task<bool> IsMembersOfRoomAsync(Guid id, ICollection<Viewer> viewers);

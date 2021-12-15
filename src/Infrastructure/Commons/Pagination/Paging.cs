@@ -1,29 +1,15 @@
 ﻿using Core.Types;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Commons.Pagination
 {
-    public class Page<T> : IPage<T> where T : Entity
+    public class Paging<T> : IPaging<T> where T : Entity
     {
-        public ICollection<T> Items { get; set; }
-        public int CurrentPage { get; set; }
-        public int TotalPages { get; set; }
-        public int FoundResults { get; set; }
-
-        public Page(ICollection<T> items, int currentPage, int totalPages, int foundResults)
-        {
-            Items = items;
-            CurrentPage = currentPage;
-            TotalPages = totalPages;
-            FoundResults = foundResults;
-        }
-
-        public async Task<IPage<T>> GetPagedResultAsync(IQueryable<T> data, int page = 1, int results = 10)
+        public async Task<Page<T>> GetPagedResultAsync(IQueryable<T> data, int page = 1, int results = 10)
         {
             page = page <= 0 ? 1 : page;
             results = results <= 0 ? 10 : results;
