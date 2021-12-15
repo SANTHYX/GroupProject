@@ -1,15 +1,14 @@
 ﻿using Application.Commons.CQRS.Query;
-using Application.Commons.Dto;
 using Application.Commons.Persistance;
 using Application.Rooms.Queries.BrowseOwnedRooms.Dto;
-using System;
+using Core.Types;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Application.Rooms.Queries.BrowseOwnedRooms
 {
-    public class BrowseOwnedRoomsHandler : IQueryHandler<PageDto<OwnedRoomDto>, BrowseOwnedRooms>
+    public class BrowseOwnedRoomsHandler : IQueryHandler<Page<OwnedRoomDto>, BrowseOwnedRooms>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -18,9 +17,8 @@ namespace Application.Rooms.Queries.BrowseOwnedRooms
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<PageDto<OwnedRoomDto>> HandleAsync(BrowseOwnedRooms query)
+        public async Task<Page<OwnedRoomDto>> HandleAsync(BrowseOwnedRooms query)
         {
-            var guid = Guid.NewGuid();
             var ownedRoomsPage = await _unitOfWork.Room.GetAllAsync(x => x.UserId == query.UserId, query);
 
             return new()

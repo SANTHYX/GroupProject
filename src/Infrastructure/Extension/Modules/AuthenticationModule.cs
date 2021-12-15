@@ -30,6 +30,5 @@ namespace Infrastructure.Extension.Modules
                         ClockSkew = TimeSpan.Zero
                     };
                 });
-
     }
 }

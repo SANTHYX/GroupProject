@@ -1,10 +1,10 @@
 ﻿using Application.Commons.CQRS.Query;
-using Application.Commons.Dto;
 using Application.Rooms.Queries.BrowseOwnedRooms.Dto;
+using Core.Types;
 
 namespace Application.Rooms.Queries.BrowseOwnedRooms
 {
-    public record BrowseOwnedRooms : AuthenticatedQuery<PageDto<OwnedRoomDto>>
+    public record BrowseOwnedRooms : AuthenticatedQuery<Page<OwnedRoomDto>>
     {
     }
 }
