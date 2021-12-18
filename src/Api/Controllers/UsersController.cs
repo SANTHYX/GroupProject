@@ -28,7 +28,7 @@ namespace Api.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPut("nickName")]
         public async Task<IActionResult> AddNickNameAsync([FromBody] AddNickName command)
         {
             await DispatchAsync(command);
