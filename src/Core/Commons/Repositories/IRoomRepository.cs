@@ -9,8 +9,9 @@ namespace Core.Commons.Repositories
 {
     public interface IRoomRepository : IRepository
     {
-        Task<Room> GetById(Guid id);
-        Task<Room> GetByUserId(Guid userId);
+        Task<Room> GetByIdAsync(Guid id);
+        Task<Room> GetAggregateByIdAsync(Guid id);
+        Task<Room> GetByUserIdAsync(Guid userId);
         Task<Page<Room>> GetAllAsync(Expression<Func<Room, bool>> expression, PagedQuery query);
         Task<bool> IsMembersOfRoomAsync(Guid id, ICollection<Viewer> viewers);
         Task AddAsync(Room room);

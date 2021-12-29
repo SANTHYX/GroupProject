@@ -1,4 +1,5 @@
 ﻿using Application.Commons.CQRS.Command;
+using Application.Commons.Extensions.Validations.Users;
 using Application.Commons.Persistance;
 using Core.Commons.Security;
 using System;
@@ -21,8 +22,7 @@ namespace Application.Identity.Commands.ChangeCreedentials
         {
             var user = await _unitOfWork.User.GetById(command.UserId);
 
-            if (user == null) 
-                throw new Exception("Uauthorised access change my mind");
+            user.IsExist();
             if (command.NewPassword == null) 
                 throw new ArgumentNullException(nameof(command.NewPassword), "Password is Required");
             if (command.ConfirmNewPassword == null)

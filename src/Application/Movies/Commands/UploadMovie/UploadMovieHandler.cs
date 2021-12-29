@@ -1,8 +1,8 @@
 ﻿using Application.Commons.CQRS.Command;
+using Application.Commons.Extensions.Validations;
 using Application.Commons.Persistance;
 using Application.Commons.Tools;
 using Core.Domain;
-using System;
 using System.Threading.Tasks;
 
 namespace Application.Movies.Commands.UploadMovie
@@ -20,10 +20,9 @@ namespace Application.Movies.Commands.UploadMovie
 
         public async Task HandleAsync(UploadMovie command)
         {
-            var room = await _unitOfWork.Room.GetByUserId(command.UserId);
+            var room = await _unitOfWork.Room.GetByIdAsync(command.RoomId);
 
-            if (room == null)
-                throw new UnauthorizedAccessException($"You are not authorized to perform this operation");
+            room.BelongsTo(command.UserId, "You are not authorized to perform this operation");
 
             var serializedFileName = await _videoWriter.SaveFileAsync(command.File);
 

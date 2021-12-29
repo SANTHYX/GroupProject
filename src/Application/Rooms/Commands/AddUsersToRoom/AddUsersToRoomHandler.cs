@@ -1,8 +1,11 @@
 ﻿using Application.Commons.CQRS.Command;
 using Application.Commons.Extensions;
+using Application.Commons.Extensions.Validations;
 using Application.Commons.Persistance;
 using Core.Domain;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,19 +23,15 @@ namespace Application.Rooms.Commands.AddUsersToRoom
 
         public async Task HandleAsync(AddUsersToRoom command)
         {
-            var room = await _unitOfWork.Room.GetById(command.RoomId);
+            var room = await _unitOfWork.Room.GetByIdAsync(command.RoomId);
 
-            if (room == null)
-                throw new Exception("Room with given id not exist");
-            if (room.UserId != command.UserId)
-                throw new UnauthorizedAccessException("You are not authorized to perform that operation");
+            room.IsNotNull("Room with given id not exist")
+                .BelongsTo(command.UserId, "You are not authorized to perform that operation");
 
             var userIdCollection = command.SelectedUsers.Select(x => x.Id);
             var viewers = await _unitOfWork.Viewer.GetAllByUserIdCollection(userIdCollection);
-            var isMembersOfRoom = await _unitOfWork.Room.IsMembersOfRoomAsync(room.Id, viewers);
-
-           if (isMembersOfRoom)
-                throw new Exception("In selected group of users one of them are already room member");
+            
+            await ThrowsWhenViewersAreMembersOfRoom(room, viewers);
            
             var users = await _unitOfWork.User.GetAllByIdCollection(userIdCollection);
 
@@ -53,6 +52,12 @@ namespace Application.Rooms.Commands.AddUsersToRoom
 
             _unitOfWork.Room.Update(room);
             await _unitOfWork.CommitAsync();
+        }
+
+        private async Task ThrowsWhenViewersAreMembersOfRoom(Room room, ICollection<Viewer> viewers)
+        {
+            if (await _unitOfWork.Room.IsMembersOfRoomAsync(room.Id, viewers))
+                throw new Exception("In selected group of users one of them are already room member");
         }
     }
 }

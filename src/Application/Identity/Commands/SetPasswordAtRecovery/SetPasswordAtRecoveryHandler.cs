@@ -23,9 +23,8 @@ namespace Application.Identity.Commands.SetPasswordAtRecovery
         {
             var thread = _threadStorage.GetById(command.ThreadId);
 
-            if (command.Password != command.RepeatedPassword)
-                    throw new Exception("Password and RepeatedPassword are not equal");
-
+            ThrowWhenPasswordsAreDiffrent(command.Password, command.RepeatedPassword);
+                  
             var (hash, salt) = _encryptor.HashPassword(command.Password);
 
             thread.User.Password = hash; 
@@ -35,6 +34,12 @@ namespace Application.Identity.Commands.SetPasswordAtRecovery
             await _unitOfWork.CommitAsync();
 
             _threadStorage.Remove(thread);
+        }
+
+        private void ThrowWhenPasswordsAreDiffrent(string password, string repeatedPassword)
+        {
+            if (password != repeatedPassword)
+                throw new Exception("Password and RepeatedPassword are not equal");
         }
     }
 }

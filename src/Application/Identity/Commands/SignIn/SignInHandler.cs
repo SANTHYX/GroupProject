@@ -1,7 +1,10 @@
 ﻿using Application.Commons.CQRS.Command;
+using Application.Commons.Extensions.Validations;
+using Application.Commons.Extensions.Validations.Users;
 using Application.Commons.Persistance;
 using Application.Commons.Services;
 using Core.Commons.Security;
+using Core.Domain;
 using System;
 using System.Threading.Tasks;
 
@@ -24,14 +27,18 @@ namespace Application.Identity.Commands.LoginUser
         {
             var user = await _unitOfWork.User.GetByLogin(command.Login);
 
-            if (user is null)
-                throw new UnauthorizedAccessException("invalid creednetials");
-            if (!_encryptor.IsValidCreendentials(command.Password, user))
-                throw new UnauthorizedAccessException("invalid creednetials");
+            user.IsExist();
+            ThrowsWhenCreedentialsAreInvalid(command.Password, user);
 
             var token = await _service.GenerateToken(user);
 
             command.Token = token;
+        }
+
+        private void ThrowsWhenCreedentialsAreInvalid(string password, User user)
+        {
+            if (!_encryptor.IsValidCreendentials(password, user))
+                throw new UnauthorizedAccessException("invalid creednetials");
         }
     }
 }

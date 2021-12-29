@@ -21,8 +21,8 @@ namespace Application.Rooms.Queries.BrowsePublicRooms
 
         public async Task<Page<PublicRoomDto>> HandleAsync(BrowsePublicRooms query)
         {
-            var publicRooms = await _unitOfWork.Room.GetAllAsync(
-                x => x.Accessability == nameof(Accessability.Public), query);
+            var accessability = nameof(Accessability.Public);
+            var publicRooms = await _unitOfWork.Room.GetAllAsync(x => x.Accessability == accessability, query);
 
             return new()
             {

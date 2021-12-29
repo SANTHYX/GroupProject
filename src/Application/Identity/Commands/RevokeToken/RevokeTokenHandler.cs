@@ -1,7 +1,8 @@
 ﻿using Application.Commons.CQRS.Command;
+using Application.Commons.Extensions.Validations;
+using Application.Commons.Extensions.Validations.Token;
 using Application.Commons.Persistance;
 using Application.Commons.Services;
-using System;
 using System.Threading.Tasks;
 
 namespace Application.Identity.Commands.RevokeToken
@@ -21,9 +22,8 @@ namespace Application.Identity.Commands.RevokeToken
         {
             var token = await _unitOfWork.Token.GetByRefreash(command.Refresh);
 
-            if(token == null)
-                throw new UnauthorizedAccessException("You dont have permission to perform that operation");
-            if(token.IsRevoked) return;
+            token.IsNotNull("You dont have permission to perform that operation")
+                .AlreadyRevoked();
 
             await _service.RevokeToken(token);
         }

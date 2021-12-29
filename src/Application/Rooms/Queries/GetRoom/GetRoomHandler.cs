@@ -19,9 +19,9 @@ namespace Application.Rooms.Queries.GetRoom
 
         public async Task<RoomDto> HandleAsync(GetRoom query)
         {
-            var room = await _unitOfWork.Room.GetById(query.Id);
+            var room = await _unitOfWork.Room.GetAggregateByIdAsync(query.Id);
 
-            return room == null ? null : new()
+            return room is null ? null : new()
             {
                 Id = room.Id,
                 Name = room.Name,

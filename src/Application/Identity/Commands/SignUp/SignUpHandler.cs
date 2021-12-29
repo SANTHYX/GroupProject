@@ -19,10 +19,8 @@ namespace Application.Identity.Commands.RegisterUser
 
         public async Task HandleAsync(SignUp command)
         {
-            if (await _unitOfWork.User.IsExistWithMail(command.Email.ToLower()))
-                throw new Exception("User already exist");
-            if (await _unitOfWork.User.IsExistWithLogin(command.Login))
-                throw new Exception("User already exist");
+            await ThrowsWhenEmailIsTaken(command.Email);
+            await ThrowsWhenLoginIsTaken(command.Login);
          
             var user = _factory.CreateInstance(
                 command.NickName,
@@ -34,5 +32,16 @@ namespace Application.Identity.Commands.RegisterUser
             await _unitOfWork.CommitAsync();
         }
 
+        private async Task ThrowsWhenEmailIsTaken(string email)
+        {
+            if (await _unitOfWork.User.IsExistWithMail(email.ToLower()))
+                throw new Exception("User already exist");
+        }
+
+        private async Task ThrowsWhenLoginIsTaken(string login)
+        {
+            if (await _unitOfWork.User.IsExistWithLogin(login))
+                throw new Exception("User already exist");
+        }
     }
 }

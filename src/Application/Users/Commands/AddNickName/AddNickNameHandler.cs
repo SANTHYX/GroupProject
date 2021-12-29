@@ -1,4 +1,5 @@
 ﻿using Application.Commons.CQRS.Command;
+using Application.Commons.Extensions.Validations.Users;
 using Application.Commons.Persistance;
 using System.Threading.Tasks;
 
@@ -16,6 +17,8 @@ namespace Application.Users.Commands.AddNickName
         public async Task HandleAsync(AddNickName command)
         {
             var user = await _unitOfWork.User.GetById(command.UserId);
+
+            user.IsExist("You have not permissions to perform that operation");
 
             user.NickName = command.NickName;
 

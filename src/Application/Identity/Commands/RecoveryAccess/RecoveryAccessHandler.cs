@@ -1,4 +1,5 @@
 ﻿using Application.Commons.CQRS.Command;
+using Application.Commons.Extensions.Validations;
 using Application.Commons.Persistance;
 using System;
 using System.Threading.Tasks;
@@ -20,8 +21,7 @@ namespace Application.Identity.Commands.RecoveryAccess
         {
             var user = await _unitOfWork.User.GetByEmail(command.Email);
 
-            if(user == null)
-                throw new Exception("Object not found");
+            user.IsNotNull();
 
             _threadStorage.Create(user);
 

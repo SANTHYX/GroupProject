@@ -21,15 +21,18 @@ namespace Infrastructure.Persistance.Repositories
             _page = page;
         }
 
-        public async Task<Room> GetById(Guid id)
-            => await _context.Rooms
+        public async Task<Room> GetByIdAsync(Guid id)
+            => await _context.Rooms.FirstOrDefaultAsync(x => x.Id == id);
+
+        public async Task<Room> GetAggregateByIdAsync(Guid id)
+        => await _context.Rooms
             .AsNoTracking()
             .Include(x => x.Chat)
             .Include(x => x.Movies)
             .Include(x => x.Viewers)
             .FirstOrDefaultAsync(x => x.Id == id);
 
-        public async Task<Room> GetByUserId(Guid userId)
+        public async Task<Room> GetByUserIdAsync(Guid userId)
             => await _context.Rooms.FirstOrDefaultAsync(x => x.UserId == userId);
 
         public async Task<Page<Room>> GetAllAsync(Expression<Func<Room, bool>> expression, PagedQuery query)

@@ -1,8 +1,8 @@
 ﻿using Application.Commons.CQRS.Command;
+using Application.Commons.Extensions.Validations.Users;
 using Application.Commons.Persistance;
 using Core.Commons.Factories;
 using Core.Domain;
-using System;
 using System.Threading.Tasks;
 
 namespace Application.Rooms.Commands.CreateRoom
@@ -22,8 +22,7 @@ namespace Application.Rooms.Commands.CreateRoom
         {
             var user = await _unitOfWork.User.GetById(command.UserId);
 
-            if(user == null)
-                throw new UnauthorizedAccessException("You have not permissions to perform that operation");
+            user.IsExist("You have not permissions to perform that operation");
 
             Room room = _factory.CreateInstance(command.Name, command.Accessability, user);
 

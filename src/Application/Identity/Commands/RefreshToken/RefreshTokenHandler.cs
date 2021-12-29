@@ -1,7 +1,8 @@
 ﻿using Application.Commons.CQRS.Command;
+using Application.Commons.Extensions.Validations;
+using Application.Commons.Extensions.Validations.Token;
 using Application.Commons.Persistance;
 using Application.Commons.Services;
-using System;
 using System.Threading.Tasks;
 
 namespace Application.Identity.Commands.RefreshToken
@@ -22,10 +23,8 @@ namespace Application.Identity.Commands.RefreshToken
             var token = await _unitOfWork.Token.GetByRefreash(command.Refresh);
             var user = await _unitOfWork.User.GetById(token.UserId);
 
-            if(token is null)
-                throw new UnauthorizedAccessException("You dont have permisson to perform this operation");
-            if(token.IsRevoked == true)
-                throw new Exception("Token has been revoked earlier");
+            token.IsNotNull("You dont have permisson to perform this operation")
+                .AlreadyRevoked();
 
             await _service.RevokeToken(token);
 
