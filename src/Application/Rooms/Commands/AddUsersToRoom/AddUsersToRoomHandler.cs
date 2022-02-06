@@ -4,7 +4,6 @@ using Application.Commons.Extensions.Validations;
 using Application.Commons.Persistance;
 using Core.Domain;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;

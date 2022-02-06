@@ -12,13 +12,13 @@ namespace Api.Controllers
     {
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly IQueryDispatcher _queryDispatcher;
-        private Guid CurrentUserId;
+        private Guid CurrentUserId => 
+            User?.Identity.IsAuthenticated == true ? Guid.Parse(User.Identity.Name) : Guid.Empty;
 
         public BaseAppController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher)
         {
             _commandDispatcher = commandDispatcher;
             _queryDispatcher = queryDispatcher;
-            CurrentUserId = GetCurrentUserId();
         }
 
         protected async Task DispatchAsync<T>(T command) where T : class, ICommand
@@ -39,9 +39,6 @@ namespace Api.Controllers
             }
 
             return await _queryDispatcher.SendAsync<TResult, QSource>(query);
-        }
-
-        private Guid GetCurrentUserId()
-            => User?.Identity.IsAuthenticated == true ? Guid.Parse(User.Identity.Name) : Guid.Empty;
+        }          
     }
 }
