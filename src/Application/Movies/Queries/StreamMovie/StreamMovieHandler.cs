@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace Application.Movies.Queries.GetMovie
 {
-    public class GetMovieHandler : IQueryHandler<MovieDto, GetMovie>
+    public class StreamMovieHandler : IQueryHandler<MovieDto, StreamMovie>
     {
-        public async Task<MovieDto> HandleAsync(GetMovie query)
+        public async Task<MovieDto> HandleAsync(StreamMovie query)
         {
             throw new System.NotImplementedException();
         }

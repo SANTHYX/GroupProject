@@ -3,7 +3,7 @@ using Application.Movies.Queries.GetMovie.Dto;
 
 namespace Application.Movies.Queries.GetMovie
 {
-    public record GetMovie : IQuery<MovieDto>
+    public record StreamMovie : IQuery<MovieDto>
     {
     }
 }
