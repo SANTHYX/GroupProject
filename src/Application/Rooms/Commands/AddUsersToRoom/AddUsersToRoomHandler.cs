@@ -23,32 +23,23 @@ namespace Application.Rooms.Commands.AddUsersToRoom
         public async Task HandleAsync(AddUsersToRoom command)
         {
             var room = await _unitOfWork.Room.GetByIdAsync(command.RoomId);
-
             room.IsNotNull("Room with given id not exist")
                 .BelongsTo(command.UserId, "You are not authorized to perform that operation");
-
             var userIdCollection = command.SelectedUsers.Select(x => x.Id);
-            var viewers = await _unitOfWork.Viewer.GetAllByUserIdCollection(userIdCollection);
-            
+            var viewers = await _unitOfWork.Viewer.GetAllByUserIdCollection(userIdCollection);   
             await ThrowsWhenViewersAreMembersOfRoom(room, viewers);
-           
             var users = await _unitOfWork.User.GetAllByIdCollection(userIdCollection);
-
             viewers = new Collection<Viewer>();
-
             users.ForEach(x => 
             { 
                 Viewer newViewer = new(x);
                 viewers.Add(newViewer);
             });
-
             await _unitOfWork.Viewer.AddManyAsync(viewers);
-
             viewers.ForEach(x => 
             {
                 room.Viewers.Add(x);
             });
-
             _unitOfWork.Room.Update(room);
             await _unitOfWork.CommitAsync();
         }

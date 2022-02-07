@@ -17,7 +17,6 @@ namespace Application.Rooms.Commands.SetupRoomDetails
         public async Task HandleAsync(SetupRoomDetails command)
         {
             var room = await _unitOfWork.Room.GetByIdAsync(command.RoomId);
-
             room.IsNotNull("Room not exists")
                 .BelongsTo(command.UserId, "You have not permissions to perform that operation");    
         }

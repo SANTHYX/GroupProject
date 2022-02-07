@@ -22,14 +22,10 @@ namespace Application.Identity.Commands.RefreshToken
         {
             var token = await _unitOfWork.Token.GetByRefreash(command.Refresh);
             var user = await _unitOfWork.User.GetById(token.UserId);
-
             token.IsNotNull("You dont have permisson to perform this operation")
                 .AlreadyRevoked();
-
             await _service.RevokeToken(token);
-
             var newToken = await _service.GenerateToken(user);
-
             command.Token = newToken;
         }
     }

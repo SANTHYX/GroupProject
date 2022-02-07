@@ -22,17 +22,12 @@ namespace Application.Identity.Commands.SetPasswordAtRecovery
         public async Task HandleAsync(SetPasswordAtRecovery command)
         {
             var thread = _threadStorage.GetById(command.ThreadId);
-
-            ThrowWhenPasswordsAreDiffrent(command.Password, command.RepeatedPassword);
-                  
+            ThrowWhenPasswordsAreDiffrent(command.Password, command.RepeatedPassword);        
             var (hash, salt) = _encryptor.HashPassword(command.Password);
-
             thread.User.Password = hash; 
             thread.User.Salt = salt;
-
             _unitOfWork.User.Update(thread.User);
             await _unitOfWork.CommitAsync();
-
             _threadStorage.Remove(thread);
         }
 

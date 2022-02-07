@@ -18,7 +18,6 @@ namespace Application.Rooms.Commands.EnterRoom
         {
             var viewer = await _unit.Viewer.GetByUserId(command.UserId);
             SetActivity(viewer);
-
             _unit.Viewer.Update(viewer);
             await _unit.CommitAsync();
         }
@@ -26,7 +25,6 @@ namespace Application.Rooms.Commands.EnterRoom
         private void SetActivity(Viewer viewer)
         {
             if (viewer.isOnline) return;
-
             viewer.isOnline = true;
         }
     }

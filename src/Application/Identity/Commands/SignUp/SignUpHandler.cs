@@ -20,8 +20,7 @@ namespace Application.Identity.Commands.RegisterUser
         public async Task HandleAsync(SignUp command)
         {
             await ThrowsWhenEmailIsTaken(command.Email);
-            await ThrowsWhenLoginIsTaken(command.Login);
-         
+            await ThrowsWhenLoginIsTaken(command.Login);    
             var user = _factory.CreateInstance(
                 command.NickName,
                 command.Login,

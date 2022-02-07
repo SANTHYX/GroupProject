@@ -21,7 +21,6 @@ namespace Application.Identity.Commands.ChangeCreedentials
         public async Task HandleAsync(ChangeCreedentials command)
         {
             var user = await _unitOfWork.User.GetById(command.UserId);
-
             user.IsExist();
             if (command.NewPassword == null) 
                 throw new ArgumentNullException(nameof(command.NewPassword), "Password is Required");
@@ -29,12 +28,9 @@ namespace Application.Identity.Commands.ChangeCreedentials
                 throw new ArgumentNullException(nameof(command.ConfirmNewPassword), "ConfirmNewPassword is Required");
             if (command.NewPassword != command.ConfirmNewPassword) 
                 throw new Exception("Passwords are incorrect");
-
             var (hash, salt) = _encryptor.HashPassword(command.NewPassword);
-
             user.Password = hash;
             user.Salt = salt;
-
             _unitOfWork.User.Update(user);
             await _unitOfWork.CommitAsync();
         }

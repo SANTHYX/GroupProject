@@ -21,10 +21,8 @@ namespace Application.Identity.Commands.RevokeToken
         public async Task HandleAsync(RevokeToken command)
         {
             var token = await _unitOfWork.Token.GetByRefreash(command.Refresh);
-
             token.IsNotNull("You dont have permission to perform that operation")
                 .AlreadyRevoked();
-
             await _service.RevokeToken(token);
         }
     }

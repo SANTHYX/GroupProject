@@ -20,9 +20,7 @@ namespace Application.Identity.Commands.RecoveryAccess
         public async Task HandleAsync(RecoveryAccess command)
         {
             var user = await _unitOfWork.User.GetByEmail(command.Email);
-
             user.IsNotNull();
-
             _threadStorage.Create(user);
 
             //TODO: Mail sending with URL to page that perform setting a new password

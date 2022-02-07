@@ -21,11 +21,8 @@ namespace Application.Rooms.Commands.CreateRoom
         public async Task HandleAsync(CreateRoom command)
         {
             var user = await _unitOfWork.User.GetById(command.UserId);
-
             user.IsExist("You have not permissions to perform that operation");
-
             Room room = _factory.CreateInstance(command.Name, command.Accessability, user);
-
             await _unitOfWork.Room.AddAsync(room);
             await _unitOfWork.CommitAsync();
         }

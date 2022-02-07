@@ -26,12 +26,9 @@ namespace Application.Identity.Commands.LoginUser
         public async Task HandleAsync(SignIn command)
         {
             var user = await _unitOfWork.User.GetByLogin(command.Login);
-
             user.IsExist();
             ThrowsWhenCreedentialsAreInvalid(command.Password, user);
-
             var token = await _service.GenerateToken(user);
-
             command.Token = token;
         }
 
