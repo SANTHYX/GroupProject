@@ -22,7 +22,6 @@ namespace Application.Movies.Commands.UploadMovie
         {
             var room = await _unitOfWork.Room.GetByIdAsync(command.RoomId);
             room.BelongsTo(command.UserId, "You are not authorized to perform this operation");
-
             var serializedFileName = await _videoWriter.SaveFileAsync(command.File);
             Movie movie = new(command.Title,serializedFileName, room);
             await _unitOfWork.Movie.AddAsync(movie);

@@ -4,6 +4,9 @@ using Application.Commons.CQRS.Query;
 using Application.Users.Commands.AddNickName;
 using Application.Users.Queries.DisplayUser;
 using Application.Users.Queries.DisplayUser.Dto;
+using Application.Users.Queries.FindNewRoomMemberByNickName;
+using Application.Users.Queries.FindNewRoomMemberByNickName.Dto;
+using Core.Types;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -25,6 +28,14 @@ namespace Api.Controllers
             var result = await SendAsync<DisplayUserDto, DisplayUser>(query);
 
             return Ok(ApiResponse<DisplayUserDto>.Success(result));
+        }
+
+        [HttpGet()]
+        public async Task<IActionResult> BrowseUsersToRoom([FromQuery] FindNewRoomMemberByNickName query)
+        {
+            var result = await SendAsync<Page<PotentialMemberDto>, FindNewRoomMemberByNickName>(query);
+
+            return Ok(ApiResponse<Page<PotentialMemberDto>>.Success(result));
         }
 
 
