@@ -6,6 +6,7 @@ namespace Application.Movies.Commands.UploadMovie
 {
     public record UploadMovie : AuthenticatedCommand
     {
+        public string Title { get; set;}
         public Guid RoomId { get; set; }
         public IFormFile File { get; set; }
     }
