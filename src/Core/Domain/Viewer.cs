@@ -8,7 +8,7 @@ namespace Core.Domain
     {
         public Guid UserId { get ; set; }
         public User User { get; set; }
-        public ICollection<Room> Rooms { get; set; }
+        public IEnumerable<Room> Rooms { get; set; }
         public bool isOnline { get; set; }
 
         protected Viewer()

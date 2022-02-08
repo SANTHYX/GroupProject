@@ -1,5 +1,6 @@
 ﻿using Application.Commons.CQRS.Command;
 using Application.Commons.Extensions.Validations;
+using Application.Commons.Extensions.Validations.NewFolder;
 using Application.Commons.Persistance;
 using Core.Domain;
 using System;
@@ -21,8 +22,7 @@ namespace Application.Rooms.Commands.AddUsersToRoom
         public async Task HandleAsync(AddUsersToRoom command)
         {
             var room = await _unitOfWork.Room.GetByIdAsync(command.RoomId);
-            room.IsNotNull("Room with given id not exist")
-                .BelongsTo(command.UserId, "You are not authorized to perform that operation");
+            room.IsNotNull("Room with given id not exist").OwnedBy(command.UserId);
             var userIdCollection = command.SelectedUsers.Select(x => x.Id);
             var viewers = await _unitOfWork.Viewer.GetAllByUserIdCollection(userIdCollection);   
             await ThrowsWhenViewersAreMembersOfRoom(room, viewers);
@@ -36,7 +36,7 @@ namespace Application.Rooms.Commands.AddUsersToRoom
             await _unitOfWork.Viewer.AddManyAsync(viewers);
             newViewers.ForEach(x => 
             {
-                room.Viewers.Add(x);
+                room.Viewers.ToList().Add(x);
             });
             _unitOfWork.Room.Update(room);
             await _unitOfWork.CommitAsync();

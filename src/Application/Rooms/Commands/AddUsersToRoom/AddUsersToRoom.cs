@@ -8,6 +8,6 @@ namespace Application.Rooms.Commands.AddUsersToRoom
     public record AddUsersToRoom : AuthenticatedCommand
     {
         public Guid RoomId { get; set; }
-        public ICollection<UserModel> SelectedUsers { get; set; }
+        public IEnumerable<UserModel> SelectedUsers { get; set; }
     }
 }

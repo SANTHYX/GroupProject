@@ -3,8 +3,6 @@ using Application.Commons.Persistance;
 using Application.Rooms.Queries.BrowsePublicRooms.Dto;
 using Core.Enums;
 using Core.Types;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -32,6 +30,7 @@ namespace Application.Rooms.Queries.BrowsePublicRooms
                 {
                     Id = x.Id,
                     Name = x.Name,
+                    Owner = x.User.NickName
                 }),
                 CurrentPage = publicRooms.CurrentPage,
                 TotalPages = publicRooms.TotalPages,

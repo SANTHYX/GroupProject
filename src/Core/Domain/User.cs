@@ -12,8 +12,8 @@ namespace Core.Domain
         public string Password { get; set; }
         public string Salt { get; set; }
         public Viewer Viewer { get; set; }
-        public ICollection<IdentityToken> IdentityTokens { get; set; }
-        public ICollection<Room> Rooms { get; set; }
+        public IEnumerable<IdentityToken> IdentityTokens { get; set; }
+        public IEnumerable<Room> Rooms { get; set; }
 
         protected User()
         {

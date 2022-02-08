@@ -37,7 +37,10 @@ namespace Infrastructure.Persistance.Repositories
 
         public async Task<Page<Room>> GetAllAsync(Expression<Func<Room, bool>> expression, PagedQuery query)
         { 
-            var data = _context.Rooms.Where(expression);
+            var data = _context.Rooms
+                .AsNoTracking()
+                .Include(x => x.User)
+                .Where(expression);
 
             return await _page.GetPagedResultAsync(data, query.Page, query.Results);
         }
