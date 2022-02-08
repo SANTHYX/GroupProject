@@ -37,14 +37,12 @@ namespace Infrastructure.Persistance.Repositories
 
         public async Task<Page<Room>> GetAllAsync(Expression<Func<Room, bool>> expression, PagedQuery query)
         { 
-            var data = _context.Rooms
-                .AsNoTracking()
-                .Where(expression);
+            var data = _context.Rooms.Where(expression);
 
             return await _page.GetPagedResultAsync(data, query.Page, query.Results);
         }
 
-        public async Task<bool> IsMembersOfRoomAsync(Guid id, ICollection<Viewer> viewers)
+        public async Task<bool> IsMembersOfRoomAsync(Guid id, IEnumerable<Viewer> viewers)
             => await _context.Rooms
             .AsNoTracking()
             .AnyAsync(x => x.Id == id && x.Viewers.Any(z => viewers.Contains(z)));

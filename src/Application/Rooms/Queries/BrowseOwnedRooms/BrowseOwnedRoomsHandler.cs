@@ -30,8 +30,7 @@ namespace Application.Rooms.Queries.BrowseOwnedRooms
                     Owner = x.User.NickName,
                     TotalViewers = x.Viewers.Count(),
                     OnlineViewers = x.Viewers.Where(viewer => viewer.isOnline).Count()
-                }) 
-                as Collection<OwnedRoomDto>,
+                }),
                 CurrentPage = ownedRoomsPage.CurrentPage,
                 TotalPages = ownedRoomsPage.TotalPages,
                 FoundResults = ownedRoomsPage.FoundResults,

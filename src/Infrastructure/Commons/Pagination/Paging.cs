@@ -1,7 +1,7 @@
 ﻿using Core.Types;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,25 +24,24 @@ namespace Infrastructure.Commons.Pagination
             var items = await GetPage(data, page, results);
             var totalPages = CalculateTotalPages(foundResults, page);
 
-            return new Page<T>(items ,page, totalPages, foundResults);
+            return new Page<T>(items, page, totalPages, foundResults);
         }
 
         private async Task<int> CountResultsAsync(IQueryable<T> data)
             => await data.CountAsync();
 
-        private async Task<Collection<T>> GetPage(IQueryable<T> data, int page, int results)
+        private async Task<IEnumerable<T>> GetPage(IQueryable<T> data, int page, int results)
             => await data
                 .Skip((page - 1) * results)
                 .Take(results)
-                .ToListAsync()
-                as Collection<T>;
+                .ToListAsync();
 
         private int CalculateTotalPages(int totalResults, int results)
             => (int)(Math.Ceiling((double)totalResults / results));
 
         private Page<T> Empty()
         {
-            return new(new Collection<T>(), 1, 1, 0);
+            return new(new List<T>(), 1, 1, 0);
         }
     }
 }

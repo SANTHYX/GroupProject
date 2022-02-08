@@ -1,11 +1,9 @@
 ﻿using Application.Commons.CQRS.Command;
-using Application.Commons.Extensions;
 using Application.Commons.Extensions.Validations;
 using Application.Commons.Persistance;
 using Core.Domain;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,14 +27,14 @@ namespace Application.Rooms.Commands.AddUsersToRoom
             var viewers = await _unitOfWork.Viewer.GetAllByUserIdCollection(userIdCollection);   
             await ThrowsWhenViewersAreMembersOfRoom(room, viewers);
             var users = await _unitOfWork.User.GetAllByIdCollection(userIdCollection);
-            viewers = new Collection<Viewer>();
-            users.ForEach(x => 
+            var newViewers = new List<Viewer>();
+            users.ToList().ForEach(x => 
             { 
                 Viewer newViewer = new(x);
-                viewers.Add(newViewer);
+                newViewers.Add(newViewer);
             });
             await _unitOfWork.Viewer.AddManyAsync(viewers);
-            viewers.ForEach(x => 
+            newViewers.ForEach(x => 
             {
                 room.Viewers.Add(x);
             });
@@ -44,7 +42,7 @@ namespace Application.Rooms.Commands.AddUsersToRoom
             await _unitOfWork.CommitAsync();
         }
 
-        private async Task ThrowsWhenViewersAreMembersOfRoom(Room room, ICollection<Viewer> viewers)
+        private async Task ThrowsWhenViewersAreMembersOfRoom(Room room, IEnumerable<Viewer> viewers)
         {
             if (await _unitOfWork.Room.IsMembersOfRoomAsync(room.Id, viewers))
                 throw new Exception("In selected group of users one of them are already room member");

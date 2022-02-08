@@ -23,12 +23,12 @@ namespace Infrastructure.Persistance.Repositories
         public async Task<Viewer> GetByUserId(Guid userId)
             => await _context.Viewers.FirstOrDefaultAsync(x => x.UserId == userId);
 
-        public async Task<ICollection<Viewer>> GetAllByUserIdCollection(IEnumerable<Guid> userIdCollection) 
+        public async Task<IEnumerable<Viewer>> GetAllByUserIdCollection(IEnumerable<Guid> userIdCollection) 
             => await _context.Viewers
             .Where(x => userIdCollection.Contains(x.UserId))
             .ToListAsync();
 
-        public async Task AddManyAsync(ICollection<Viewer> viewers)
+        public async Task AddManyAsync(IEnumerable<Viewer> viewers)
         {
             await _context.Viewers.AddRangeAsync(viewers);
         }

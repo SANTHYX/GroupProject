@@ -3,7 +3,7 @@ using Application.Commons.Persistance;
 using Application.Rooms.Queries.BrowsePublicRooms.Dto;
 using Core.Enums;
 using Core.Types;
-using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,13 +24,15 @@ namespace Application.Rooms.Queries.BrowsePublicRooms
             var accessability = nameof(Accessability.Public);
             var publicRooms = await _unitOfWork.Room.GetAllAsync(x => x.Accessability == accessability, query);
 
+            var results = publicRooms.Items;
+
             return new()
             {
                 Items = publicRooms.Items?.Select(x => new PublicRoomDto
                 {
-
-                })
-                as Collection<PublicRoomDto>,
+                    Id = x.Id,
+                    Name = x.Name,
+                }),
                 CurrentPage = publicRooms.CurrentPage,
                 TotalPages = publicRooms.TotalPages,
                 FoundResults = publicRooms.FoundResults

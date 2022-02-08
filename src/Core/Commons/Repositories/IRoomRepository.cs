@@ -13,7 +13,7 @@ namespace Core.Commons.Repositories
         Task<Room> GetAggregateByIdAsync(Guid id);
         Task<Room> GetByUserIdAsync(Guid userId);
         Task<Page<Room>> GetAllAsync(Expression<Func<Room, bool>> expression, PagedQuery query);
-        Task<bool> IsMembersOfRoomAsync(Guid id, ICollection<Viewer> viewers);
+        Task<bool> IsMembersOfRoomAsync(Guid id, IEnumerable<Viewer> viewers);
         Task AddAsync(Room room);
         void Update(Room room);
     }

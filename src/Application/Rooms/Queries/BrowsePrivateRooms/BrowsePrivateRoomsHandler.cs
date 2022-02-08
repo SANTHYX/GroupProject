@@ -21,7 +21,8 @@ namespace Application.Rooms.Queries.BrowsePrivateRooms
         public async Task<Page<PrivateRoomDto>> HandleAsync(BrowsePrivateRooms query)
         {
             var accessability = nameof(Accessability.OnlyFriends); 
-            var privateRooms = await _unitOfWork.Room.GetAllAsync(x => x.Accessability == accessability,query);
+            var privateRooms = await _unitOfWork.Room
+                .GetAllAsync(x => x.Accessability == accessability,query);
 
             return new()
             {
@@ -29,8 +30,7 @@ namespace Application.Rooms.Queries.BrowsePrivateRooms
                 {
                     Id = x.Id,
                     Name = x.Name,
-                })
-                as Collection<PrivateRoomDto>,
+                }),
                 CurrentPage = privateRooms.CurrentPage,
                 TotalPages = privateRooms.TotalPages,
                 FoundResults = privateRooms.FoundResults

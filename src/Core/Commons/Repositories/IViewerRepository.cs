@@ -9,8 +9,8 @@ namespace Core.Commons.Repositories
     {
         Task<Viewer> GetById(Guid id);
         Task<Viewer> GetByUserId(Guid userId);
-        Task<ICollection<Viewer>> GetAllByUserIdCollection(IEnumerable<Guid> userIdCollection);
-        Task AddManyAsync(ICollection<Viewer> viewers);
+        Task<IEnumerable<Viewer>> GetAllByUserIdCollection(IEnumerable<Guid> userIdCollection);
+        Task AddManyAsync(IEnumerable<Viewer> viewers);
         void Update(Viewer viewer);
     }
 }

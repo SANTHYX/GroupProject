@@ -13,7 +13,7 @@ namespace Core.Commons.Repositories
         Task<User> GetByLogin(string login);
         Task<User> GetByEmail(string email);
         Task<User> GetAggregateById(Guid id);
-        Task<ICollection<User>> GetAllByIdCollection(IEnumerable<Guid> idCollection);
+        Task<IEnumerable<User>> GetAllByIdCollection(IEnumerable<Guid> idCollection);
         Task<Page<User>> GetAllAsync(Expression<Func<User, bool>> expression, PagedQuery query);
         Task<bool> IsExistWithMail(string email);
         Task<bool> IsExistWithLogin(string login);
