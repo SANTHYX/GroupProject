@@ -5,6 +5,7 @@ using Application.Commons.Persistance;
 using Core.Domain;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,15 +29,17 @@ namespace Application.Rooms.Commands.AddUsersToRoom
             await ThrowsWhenViewersAreMembersOfRoom(room, viewers);
             var users = await _unitOfWork.User.GetAllByIdCollection(userIdCollection);
             var newViewers = new List<Viewer>();
-            users.ToList().ForEach(x => 
-            { 
-                Viewer newViewer = new(x);
-                newViewers.Add(newViewer);
-            });
+            users.ToList()
+                .ForEach(x => 
+                { 
+                    Viewer newViewer = new(x);
+                    newViewers.Add(newViewer);
+                });
             await _unitOfWork.Viewer.AddManyAsync(newViewers);
+            room.Viewers = new Collection<Viewer>();
             newViewers.ForEach(x => 
             {
-                room.Viewers.ToList().Add(x);
+                room.Viewers.Add(x);      
             });
             _unitOfWork.Room.Update(room);
             await _unitOfWork.CommitAsync();
