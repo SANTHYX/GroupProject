@@ -22,7 +22,8 @@ namespace Infrastructure.Persistance.Repositories
         }
 
         public async Task<Room> GetByIdAsync(Guid id)
-            => await _context.Rooms.FirstOrDefaultAsync(x => x.Id == id);
+            => await _context.Rooms
+            .FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<Room> GetAggregateByIdAsync(Guid id)
         => await _context.Rooms

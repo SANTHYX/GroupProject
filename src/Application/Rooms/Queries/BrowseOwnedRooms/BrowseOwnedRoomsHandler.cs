@@ -27,9 +27,7 @@ namespace Application.Rooms.Queries.BrowseOwnedRooms
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    Owner = x.User.NickName,
-                    TotalViewers = x.Viewers.Count(),
-                    OnlineViewers = x.Viewers.Where(viewer => viewer.isOnline).Count()
+                    Owner = x.User.NickName
                 }),
                 CurrentPage = ownedRoomsPage.CurrentPage,
                 TotalPages = ownedRoomsPage.TotalPages,

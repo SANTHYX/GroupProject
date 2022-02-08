@@ -51,6 +51,9 @@ namespace Infrastructure.Persistance.Migrations
                     b.Property<Guid?>("RoomId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Value")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RoomId");
@@ -137,6 +140,9 @@ namespace Infrastructure.Persistance.Migrations
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
+
+                    b.Property<bool>("isOnline")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 

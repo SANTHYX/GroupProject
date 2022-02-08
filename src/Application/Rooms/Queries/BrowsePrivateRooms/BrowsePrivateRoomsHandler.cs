@@ -3,7 +3,6 @@ using Application.Commons.Persistance;
 using Application.Rooms.Queries.BrowsePrivateRooms.Dto;
 using Core.Enums;
 using Core.Types;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 

@@ -33,7 +33,7 @@ namespace Application.Rooms.Commands.AddUsersToRoom
                 Viewer newViewer = new(x);
                 newViewers.Add(newViewer);
             });
-            await _unitOfWork.Viewer.AddManyAsync(viewers);
+            await _unitOfWork.Viewer.AddManyAsync(newViewers);
             newViewers.ForEach(x => 
             {
                 room.Viewers.ToList().Add(x);

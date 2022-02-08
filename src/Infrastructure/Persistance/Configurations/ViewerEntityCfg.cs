@@ -10,7 +10,7 @@ namespace Infrastructure.Persistance.Configurations
         public void Configure(EntityTypeBuilder<Viewer> builder)
         {
             builder.HasKey(x => x.Id);
-
+            builder.Property(x => x.isOnline);
             builder.HasMany(x => x.Rooms)
                 .WithMany(y => y.Viewers)
                 .UsingEntity<Dictionary<string, object>>
