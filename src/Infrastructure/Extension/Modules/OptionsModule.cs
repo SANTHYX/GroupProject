@@ -7,7 +7,6 @@ namespace Infrastructure.Extension.Modules
     public static class OptionsModule
     {
         internal static IServiceCollection AddOptionsModule(this IServiceCollection services, IConfiguration configuration)
-            => services.Configure<SecuritySettings>(configuration.GetSection(SecuritySettings.Section))
-            .Configure<ImdbGatewayOptions>(configuration.GetSection(ImdbGatewayOptions.Section));
+            => services.Configure<SecuritySettings>(configuration.GetSection(SecuritySettings.Section));
     }
 }
