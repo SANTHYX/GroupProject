@@ -2,7 +2,6 @@
 using Application.Commons.Persistance;
 using Application.Rooms.Queries.BrowseUserMembershipRooms.Dto;
 using Core.Types;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,7 +29,7 @@ namespace Application.Rooms.Queries.BrowseUserMembershipRooms
                     Id = x.Id,
                     Name = x.Name,
                     Owner = x.User.NickName,
-                }) as ICollection<MembershipRoomDto>,
+                }),
                 CurrentPage = roomsWithMembership.CurrentPage,
                 TotalPages = roomsWithMembership.TotalPages,
                 FoundResults = roomsWithMembership.FoundResults
