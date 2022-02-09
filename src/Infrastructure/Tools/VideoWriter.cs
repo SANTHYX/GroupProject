@@ -15,10 +15,10 @@ namespace Infrastructure.Tools
             ValidateIsFileVideo(file);
 
             var fileName = Guid.NewGuid().ToString("N");
-            var directory = Path.Combine(DirectoriesStore.MoviesDirectory,
-                $"{ fileName }{ Path.GetExtension(file.FileName) }");
+            var directory = Path.Combine(DirectoriesStore.MoviesDirectory);
+            fileName = $"{ fileName }{ Path.GetExtension(file.FileName) }";
 
-            await SerializeFileAsync(file, directory);
+            await SerializeFileAsync(file, directory, fileName);
 
             return fileName;
         }
