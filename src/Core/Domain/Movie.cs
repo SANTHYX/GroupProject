@@ -1,5 +1,6 @@
 ﻿using Core.Types;
 using System;
+using System.Collections.Generic;
 
 namespace Core.Domain
 {
@@ -8,19 +9,17 @@ namespace Core.Domain
         public string Title { get; set; }
         public string FileName { get; set; }
         public Guid RoomId { get; set; }
-        public Room Room { get; set; }
+        public IEnumerable<Room> Rooms { get; set; }
 
         protected Movie()
         {
 
         }
 
-        public Movie(string title, string fileName, Room room)
+        public Movie(string title, string fileName)
         {
             Title = title;
             FileName = fileName;
-            Room = room ?? throw new ArgumentNullException(nameof(room),
-                "Cannot bind Room with null Movie instance");
         }
     }
 }
