@@ -7,15 +7,15 @@ namespace Infrastructure.Commons.Tools
 {
     public abstract class FileWriter
     {
-        protected async Task SerializeFileAsync(IFormFile file, string directory)
+        protected async Task SerializeFileAsync(IFormFile file, string directory, string filename)
         {
             CreateDirectoryIfNotExist(directory);
 
             try
             {
-                using (FileStream stream = new(directory, FileMode.Create))
+                using (FileStream stream = new(Path.Combine(directory, filename), FileMode.Create))
                 {
-                    await stream.CopyToAsync(stream);
+                    await file.CopyToAsync(stream);
                 }  
             }
             catch (Exception)
