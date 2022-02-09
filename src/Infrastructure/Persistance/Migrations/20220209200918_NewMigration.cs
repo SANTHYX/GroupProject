@@ -8,6 +8,19 @@ namespace Infrastructure.Persistance.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Movies",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Title = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    FileName = table.Column<string>(type: "character varying(42)", maxLength: 42, nullable: false),
+                    RoomId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Movies", x => x.Id);
+                });
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -102,19 +115,23 @@ namespace Infrastructure.Persistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Movies",
+                name: "RoomMovies",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Title = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    FileName = table.Column<string>(type: "character varying(42)", maxLength: 42, nullable: false),
+                    MovieId = table.Column<Guid>(type: "uuid", nullable: false),
                     RoomId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Movies", x => x.Id);
+                    table.PrimaryKey("PK_RoomMovies", x => new { x.MovieId, x.RoomId });
                     table.ForeignKey(
-                        name: "FK_Movies_Rooms_RoomId",
+                        name: "FK_RoomMovies_Movies_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RoomMovies_Rooms_RoomId",
                         column: x => x.RoomId,
                         principalTable: "Rooms",
                         principalColumn: "Id",
@@ -151,8 +168,8 @@ namespace Infrastructure.Persistance.Migrations
                 column: "RoomId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Movies_RoomId",
-                table: "Movies",
+                name: "IX_RoomMovies_RoomId",
+                table: "RoomMovies",
                 column: "RoomId");
 
             migrationBuilder.CreateIndex(
@@ -183,13 +200,16 @@ namespace Infrastructure.Persistance.Migrations
                 name: "Message");
 
             migrationBuilder.DropTable(
-                name: "Movies");
+                name: "RoomMovies");
 
             migrationBuilder.DropTable(
                 name: "Session");
 
             migrationBuilder.DropTable(
                 name: "Tokens");
+
+            migrationBuilder.DropTable(
+                name: "Movies");
 
             migrationBuilder.DropTable(
                 name: "Rooms");

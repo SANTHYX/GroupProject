@@ -1,6 +1,7 @@
 ﻿using Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Collections.Generic;
 
 namespace Infrastructure.Persistance.Configurations
 {
@@ -15,9 +16,18 @@ namespace Infrastructure.Persistance.Configurations
             builder.Property(x => x.Title)
                 .HasMaxLength(50)
                 .IsRequired();
-            builder.HasOne(x => x.Room)
+            builder.HasMany(x => x.Rooms)
                 .WithMany(y => y.Movies)
-                .HasForeignKey(x => x.RoomId);
+                .UsingEntity<Dictionary<string, object>>
+                    (
+                    "RoomMovies",
+                        j => j.HasOne<Room>()
+                        .WithMany()
+                        .HasForeignKey("RoomId"),
+                            j => j.HasOne<Movie>()
+                            .WithMany()
+                            .HasForeignKey("MovieId")
+                    );
         }
     }
 }

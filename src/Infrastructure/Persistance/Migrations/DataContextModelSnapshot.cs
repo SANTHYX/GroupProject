@@ -82,8 +82,6 @@ namespace Infrastructure.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoomId");
-
                     b.ToTable("Movies");
                 });
 
@@ -157,6 +155,21 @@ namespace Infrastructure.Persistance.Migrations
                     b.ToTable("Viewers");
                 });
 
+            modelBuilder.Entity("RoomMovies", b =>
+                {
+                    b.Property<Guid>("MovieId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("RoomId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("MovieId", "RoomId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("RoomMovies");
+                });
+
             modelBuilder.Entity("Session", b =>
                 {
                     b.Property<Guid>("RoomId")
@@ -192,17 +205,6 @@ namespace Infrastructure.Persistance.Migrations
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("Core.Domain.Movie", b =>
-                {
-                    b.HasOne("Core.Domain.Room", "Room")
-                        .WithMany("Movies")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Room");
-                });
-
             modelBuilder.Entity("Core.Domain.Room", b =>
                 {
                     b.HasOne("Core.Domain.User", "User")
@@ -225,6 +227,21 @@ namespace Infrastructure.Persistance.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("RoomMovies", b =>
+                {
+                    b.HasOne("Core.Domain.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Domain.Room", null)
+                        .WithMany()
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Session", b =>
                 {
                     b.HasOne("Core.Domain.Room", null)
@@ -243,8 +260,6 @@ namespace Infrastructure.Persistance.Migrations
             modelBuilder.Entity("Core.Domain.Room", b =>
                 {
                     b.Navigation("Chat");
-
-                    b.Navigation("Movies");
                 });
 
             modelBuilder.Entity("Core.Domain.User", b =>

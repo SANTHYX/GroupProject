@@ -33,7 +33,7 @@ namespace Infrastructure.Persistance.Configurations
                 .WithMany(y => y.Rooms)
                 .UsingEntity<Dictionary<string, object>>
                     (
-                    "RoomsMovies",
+                    "RoomMovies",
                         j => j.HasOne<Movie>()
                         .WithMany()
                         .HasForeignKey("MovieId"),
