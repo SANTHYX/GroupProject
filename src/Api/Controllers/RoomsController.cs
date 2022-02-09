@@ -2,6 +2,7 @@
 using Application.Commons.CQRS.Command;
 using Application.Commons.CQRS.Query;
 using Application.Rooms.Commands.AddUsersToRoom;
+using Application.Rooms.Commands.AsignMovieToRoom;
 using Application.Rooms.Commands.CreateRoom;
 using Application.Rooms.Queries.BrowseOwnedRooms;
 using Application.Rooms.Queries.BrowseOwnedRooms.Dto;
@@ -87,6 +88,15 @@ namespace Api.Controllers
         [Authorize]
         [HttpPut("add-users")]
         public async Task<IActionResult> AddUsersToRoomAsync([FromBody] AddUsersToRoom command)
+        {
+            await DispatchAsync(command);
+
+            return Ok(ApiResponse.Success());
+        }
+
+        [Authorize]
+        [HttpPut("add-movie")]
+        public async Task<IActionResult> AddMovie([FromBody] AsignMovieToRoom command)
         {
             await DispatchAsync(command);
 
