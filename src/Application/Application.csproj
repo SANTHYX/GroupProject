@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <Folder Include="Movies\Queries\StreamMovie\Dto\NestedModels\" />
-    <Folder Include="Rooms\Queries\EnterRoom\Hub\" />
+    <Folder Include="Rooms\Queries\GetRoom\Hub\" />
     <Folder Include="Users\Commands\AddToFriends\" />
   </ItemGroup>
 

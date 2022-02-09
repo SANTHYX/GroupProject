@@ -30,15 +30,6 @@ namespace Api.Controllers
             return Ok(ApiResponse<DisplayUserDto>.Success(result));
         }
 
-        [HttpGet()]
-        public async Task<IActionResult> BrowseUsersToRoom([FromQuery] FindNewRoomMemberByNickName query)
-        {
-            var result = await SendAsync<Page<PotentialMemberDto>, FindNewRoomMemberByNickName>(query);
-
-            return Ok(ApiResponse<Page<PotentialMemberDto>>.Success(result));
-        }
-
-
         [HttpPut("nickName")]
         public async Task<IActionResult> AddNickNameAsync([FromBody] AddNickName command)
         {

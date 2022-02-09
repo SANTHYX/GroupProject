@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Persistance.Migrations
 {
-    public partial class MyMigration : Migration
+    public partial class NewMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -106,6 +106,7 @@ namespace Infrastructure.Persistance.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Title = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     FileName = table.Column<string>(type: "character varying(42)", maxLength: 42, nullable: false),
                     RoomId = table.Column<Guid>(type: "uuid", nullable: false)
                 },

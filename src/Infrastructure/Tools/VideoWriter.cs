@@ -27,8 +27,7 @@ namespace Infrastructure.Tools
         {
             if (Path.GetExtension(file.FileName) is not ".mp4")
             {
-                throw new FormatException($"Cannot serialize file " +
-                    $"becouse given file is '{Path.GetExtension(file.FileName)}' when should be 'mp4'");
+                throw new FormatException($"Cannot serialize file becouse given file is '{Path.GetExtension(file.FileName)}' when should be 'mp4'");
             }
         }
     }

@@ -75,6 +75,11 @@ namespace Infrastructure.Persistance.Migrations
                     b.Property<Guid>("RoomId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RoomId");

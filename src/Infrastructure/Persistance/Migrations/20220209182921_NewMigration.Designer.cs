@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Persistance.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220208191521_MyMigration")]
-    partial class MyMigration
+    [Migration("20220209182921_NewMigration")]
+    partial class NewMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -76,6 +76,11 @@ namespace Infrastructure.Persistance.Migrations
 
                     b.Property<Guid>("RoomId")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 

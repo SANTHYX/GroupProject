@@ -12,7 +12,9 @@ namespace Infrastructure.Persistance.Configurations
             builder.Property(x => x.FileName)
                 .HasMaxLength(42)
                 .IsRequired();
-
+            builder.Property(x => x.Title)
+                .HasMaxLength(50)
+                .IsRequired();
             builder.HasOne(x => x.Room)
                 .WithMany(y => y.Movies)
                 .HasForeignKey(x => x.RoomId);

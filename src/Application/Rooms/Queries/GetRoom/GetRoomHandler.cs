@@ -2,7 +2,6 @@
 using Application.Commons.Persistance;
 using Application.Rooms.Queries.GetRoom.Dto;
 using Application.Rooms.Queries.GetRoom.Dto.NestedModels;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,11 +24,14 @@ namespace Application.Rooms.Queries.GetRoom
             {
                 Id = room.Id,
                 Name = room.Name,
-                Chat = room.Chat?.Select(x => new MessageModel
+                Comments = room.Chat?.Select(comment => new CommentDto
                 {
-                    Value = x.Value
-                }) 
-                as Collection<MessageModel>,
+                    Message = comment.Value,
+                }),
+                Movies = room.Movies?.Select(movie => new MovieDto
+                {
+                    Title = movie.Title
+                })
             };
         }
     }
