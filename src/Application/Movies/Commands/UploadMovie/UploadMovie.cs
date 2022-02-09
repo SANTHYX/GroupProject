@@ -4,7 +4,7 @@ using System;
 
 namespace Application.Movies.Commands.UploadMovie
 {
-    public record UploadMovie : AuthenticatedCommand
+    public record UploadMovie : AuthenticatedCommand, ICommand
     {
         public string Title { get; set; }
         public IFormFile File { get; set; }

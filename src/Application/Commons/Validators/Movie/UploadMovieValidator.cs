@@ -7,9 +7,7 @@ namespace Application.Commons.Validators.Movie
     {
         public UploadMovieValidator()
         {
-            RuleFor(x => x.File)
-                .Empty()
-                .WithMessage("File is required");
+         
         }
     }
 }
