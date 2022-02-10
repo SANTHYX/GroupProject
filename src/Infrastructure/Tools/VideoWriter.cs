@@ -18,7 +18,7 @@ namespace Infrastructure.Tools
             var directory = DirectoriesStore.MoviesDirectory;
             var pathFile = Path.Combine(directory,$"{ fileName }{ Path.GetExtension(file.FileName) }");
 
-            await SerializeFileAsync(file, directory);
+            await SerializeFileAsync(file, directory, pathFile);
 
             return fileName;
         }
