@@ -32,7 +32,7 @@ namespace Api.Controllers
             return Ok(ApiResponse.Success());
         }
 
-        [HttpGet("inRoom/{roomId}")]
+        [HttpGet("inRoom/{RoomId}")]
         public async Task<IActionResult> BrowseMoviesInRoom([FromRoute] BrowseMoviesInRoom query)
         {
             var result = await SendAsync<IEnumerable<MovieDto>,BrowseMoviesInRoom>(query);
@@ -40,7 +40,7 @@ namespace Api.Controllers
             return Ok(ApiResponse<IEnumerable<MovieDto>>.Success(result));
         }
 
-        [HttpGet("notInRoom/{roomId}")]
+        [HttpGet("notInRoom/{RoomId}")]
         public async Task<IActionResult> BrowseNotInclodedMovies([FromRoute] BrowseNotIncludedMovies query)
         {
             var result = await SendAsync<IEnumerable<MoviesDto>, BrowseNotIncludedMovies>(query);

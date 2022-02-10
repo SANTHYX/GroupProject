@@ -14,9 +14,9 @@ namespace Infrastructure.Tools
         {
             ValidateIsFileVideo(file);
 
-            var fileName = Guid.NewGuid().ToString("N");
+            var fileName = $"{Guid.NewGuid().ToString("N")}{ Path.GetExtension(file.FileName) }";
             var directory = DirectoriesStore.MoviesDirectory;
-            var pathFile = Path.Combine(directory,$"{ fileName }{ Path.GetExtension(file.FileName) }");
+            var pathFile = Path.Combine(directory,fileName);
 
             await SerializeFileAsync(file, directory, pathFile);
 
