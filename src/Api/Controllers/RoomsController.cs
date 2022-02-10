@@ -85,6 +85,8 @@ namespace Api.Controllers
             return Ok(ApiResponse.Success());
         }
 
+        [Authorize]
+        [HttpPost("addMovieToRoom")]
         public async Task<IActionResult> AddMovieToRoom([FromBody] AddMovieToRoom command)
         {
             await DispatchAsync(command);
