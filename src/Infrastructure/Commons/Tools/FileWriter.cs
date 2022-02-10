@@ -15,7 +15,7 @@ namespace Infrastructure.Commons.Tools
             {
                 using (FileStream stream = new(filePath, FileMode.Create))
                 {
-                    await stream.CopyToAsync(stream);
+                    await file.CopyToAsync(stream);
                 }  
             }
             catch (Exception)
