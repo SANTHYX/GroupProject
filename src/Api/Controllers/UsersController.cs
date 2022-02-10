@@ -6,8 +6,12 @@ using Application.Users.Queries.DisplayUser;
 using Application.Users.Queries.DisplayUser.Dto;
 using Application.Users.Queries.FindNewRoomMemberByNickName;
 using Application.Users.Queries.FindNewRoomMemberByNickName.Dto;
+using Application.Users.Queries.GetUsersInRoom;
+using Application.Users.Queries.GetUsersNotInRoom;
+using Application.Users.Queries.GetUsersNotInRoom.Dto;
 using Core.Types;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Api.Controllers
@@ -28,6 +32,22 @@ namespace Api.Controllers
             var result = await SendAsync<DisplayUserDto, DisplayUser>(query);
 
             return Ok(ApiResponse<DisplayUserDto>.Success(result));
+        }
+
+        [HttpGet("notInRoom/{RoomId}")]
+        public async Task<IActionResult> GetUsersNotInRoomAsync([FromRoute] GetUsersNotInRoom query)
+        {
+            var result = await SendAsync<IEnumerable<UserDto>, GetUsersNotInRoom>(query);
+
+            return Ok(ApiResponse<IEnumerable<UserDto>>.Success(result));
+        }
+
+        [HttpGet("inRoom/{RoomId}")]
+        public async Task<IActionResult> GetUsersInRoomAsync([FromRoute] GetUsersInRoom query)
+        {
+            var result = await SendAsync<IEnumerable<Application.Users.Queries.GetUsersWithRoom.Dto.UserDto>, GetUsersInRoom>(query);
+
+            return Ok(ApiResponse<IEnumerable<Application.Users.Queries.GetUsersWithRoom.Dto.UserDto>>.Success(result));
         }
 
         [HttpPut("nickName")]

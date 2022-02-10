@@ -40,6 +40,14 @@ namespace Infrastructure.Persistance.Repositories
             .Where(x => idCollection.Contains(x.Id))
             .ToListAsync();
 
+        public async Task<IEnumerable<User>> GetAllAsync(Expression<Func<User, bool>> expression)
+            => await _context.Users
+                .AsNoTracking()
+                .Include(x => x.Viewer)
+                .ThenInclude(y => y.Rooms)
+                .Where(expression)
+                .ToListAsync();
+
         public async Task<Page<User>> GetAllAsync(Expression<Func<User, bool>> expression, PagedQuery query)
         {
             var result = _context.Users
