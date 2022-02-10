@@ -9,7 +9,7 @@ namespace Core.Domain
         public string Title { get; set; }
         public string FileName { get; set; }
         public Guid RoomId { get; set; }
-        public IEnumerable<Room> Rooms { get; set; }
+        public ICollection<Room> Rooms { get; set; }
 
         protected Movie()
         {

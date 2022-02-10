@@ -28,7 +28,7 @@ namespace Application.Movies.Queries.BrowseMovieLibrary
             return movies?.Select(movie => new MoviesDto
             {
                 Title = movie.Title,
-                Uri = new Uri($"{ _serverProvider.GetBaseServerUrl() }/files/{ movie.FileName }")
+                Uri = new Uri($"{ _serverProvider.GetBaseServerUrl() }files/{ movie.FileName }")
             });
         }
     }

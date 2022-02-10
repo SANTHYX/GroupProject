@@ -18,6 +18,9 @@ namespace Infrastructure.Persistance.Repositories
             _context = context;
         }
 
+        public async Task<Movie> GetByFileNameAsync(string fileName)
+            => await _context.Movies.FirstOrDefaultAsync(x => x.FileName == fileName);
+
         public async Task<IEnumerable<Movie>> GetAllAsync(Expression<Func<Movie, bool>> expression)
             => await _context.Movies
             .AsNoTracking()
@@ -27,6 +30,11 @@ namespace Infrastructure.Persistance.Repositories
         public async Task AddAsync(Movie movie)
         {
             await _context.Movies.AddAsync(movie);
+        }
+
+        public void Update(Movie movie)
+        {
+            _context.Update(movie);
         }
     }
 }

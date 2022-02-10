@@ -1,6 +1,8 @@
 ﻿using Application.Commons.CQRS.Command;
 using Application.Commons.Persistance;
+using Core.Domain;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,6 +24,13 @@ namespace Application.Rooms.Commands.AddMovieToRoom
                 throw new UnauthorizedAccessException("You cannot perform that operation");
             if (room.Movies.Any(movie => movie.FileName == command.FileName)) 
                 throw new Exception("Movie already exist in room library");
+            var movie = await _unit.Movie.GetByFileNameAsync(command.FileName);
+            if(movie == null)
+                throw new Exception("Given is empty");
+
+            movie.Rooms.Add(room);
+            _unit.Movie.Update(movie);
+            await _unit.CommitAsync();
         }
     }
 }
