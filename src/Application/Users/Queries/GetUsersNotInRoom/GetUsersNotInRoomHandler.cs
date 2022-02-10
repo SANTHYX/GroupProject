@@ -18,8 +18,7 @@ namespace Application.Users.Queries.GetUsersNotInRoom
 
         public async Task<IEnumerable<UserDto>> HandleAsync(GetUsersNotInRoom query)
         {
-            var users = await _unit.User
-                .GetAllAsync(x => x.Viewer.Rooms.Any(x => x.Id != query.RoomId));
+            var users = await _unit.User.GetAllAsync(x => x.Viewer.Rooms.Any(x => x.Id != query.RoomId) || x.Viewer == null);
 
             return users?.Select(x => new UserDto
             {
