@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Application.Movies.Queries.BrowseMovieLibrary
 {
-    public class BrowseMovieLibraryHandler //: IQueryHandler<ICollection<MoviesDto>, BrowseMovieLibrary>
+    public class BrowseMovieLibraryHandler : IQueryHandler<IEnumerable<MoviesDto>, BrowseMovieLibrary>
     {
-        /*
         private readonly IUnitOfWork _unit;
 
         public BrowseMovieLibraryHandler(IUnitOfWork unit)
@@ -16,10 +15,10 @@ namespace Application.Movies.Queries.BrowseMovieLibrary
             _unit = unit;
         }
 
-        public async Task<ICollection<MoviesDto>> HandleAsync(BrowseMovieLibrary query)
+        public async Task<IEnumerable<MoviesDto>> HandleAsync(BrowseMovieLibrary query)
         {
-            //var movies = await _unit.Movie
+            
         }
-        */
+        
     }
 }

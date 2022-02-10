@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Application.Movies.Queries.BrowseMovieLibrary
 {
-    public class BrowseMovieLibrary : IQuery<ICollection<MoviesDto>>
+    public class BrowseMovieLibrary : IQuery<IEnumerable<MoviesDto>>
     {
     }
 }
