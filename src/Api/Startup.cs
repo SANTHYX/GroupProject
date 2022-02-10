@@ -11,6 +11,9 @@ using Api.Middlewares;
 using Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using Api.Extensions;
+using Infrastructure.Commons.Helpers;
+using System.IO;
+using Microsoft.Extensions.FileProviders;
 
 namespace Api
 {
@@ -55,12 +58,18 @@ namespace Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1"));
             }
 
-            app.UseHttpsRedirection();
+            app.UseStaticFiles( new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(DirectoriesStore.MoviesDirectory)),
+                RequestPath = "/files"
+            });
 
             app.UseCors(x =>
             {
                 x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
             });
+
+            app.UseStaticFiles();
 
             app.UseRouting();
 

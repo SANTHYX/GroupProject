@@ -4,16 +4,20 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Commons.Persistance;
 using System.Linq;
+using Application.Commons.Providers;
+using System;
 
 namespace Application.Movies.Queries.BrowseMoviesInRoom
 {
     public class BrowseMoviesInRoomHandler : IQueryHandler<IEnumerable<MovieDto>, BrowseMoviesInRoom>
     {
         private readonly IUnitOfWork _unit;
+        private readonly IServerDetailsProvider _serverProvider;
 
-        public BrowseMoviesInRoomHandler(IUnitOfWork unit)
+        public BrowseMoviesInRoomHandler(IUnitOfWork unit, IServerDetailsProvider serverProvider)
         {
             _unit = unit;
+            _serverProvider = serverProvider;
         }
 
         public async Task<IEnumerable<MovieDto>> HandleAsync(BrowseMoviesInRoom query)
@@ -22,7 +26,8 @@ namespace Application.Movies.Queries.BrowseMoviesInRoom
 
             return movies?.Select(movie => new MovieDto
             {
-                Title = movie.Title
+                Title = movie.Title,
+                Url = new Uri($"{ _serverProvider.GetBaseServerUrl() }/files/{ movie.FileName }")
             });
         }
     }
