@@ -1,8 +1,6 @@
 ﻿using Application.Commons.CQRS.Command;
 using Application.Commons.Persistance;
-using Core.Domain;
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 

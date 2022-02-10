@@ -17,7 +17,7 @@ namespace Infrastructure.Providers
         {
             var request = _httpContextAccessor.HttpContext.Request;
 
-            return new Uri($"{request.Scheme}/{request.Host.ToUriComponent()}");
+            return new($"{ request.Scheme }://{ request.Host.ToUriComponent() }");
         }
     }
 }
