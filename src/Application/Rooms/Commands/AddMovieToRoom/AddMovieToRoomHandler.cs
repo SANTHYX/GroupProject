@@ -1,6 +1,8 @@
 ﻿using Application.Commons.CQRS.Command;
 using Application.Commons.Persistance;
+using Core.Domain;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,13 +20,19 @@ namespace Application.Rooms.Commands.AddMovieToRoom
         public async Task HandleAsync(AddMovieToRoom command)
         {
             var room = await _unit.Room.GetByIdAsync(command.RoomId);
+            if (room == null)
+            {
+                throw new Exception($"No room with id {command.RoomId}");
+            }
+            room.Movies ??= new List<Movie>();
             if (room.UserId != command.UserId) 
                 throw new UnauthorizedAccessException("You cannot perform that operation");
             if (room.Movies.Any(movie => movie.FileName == command.FileName)) 
                 throw new Exception("Movie already exist in room library");
             var movie = await _unit.Movie.GetByFileNameAsync(command.FileName);
             if(movie == null)
-                throw new Exception("Given is empty");
+                throw new Exception($"No movie with id {command.FileName}");
+            movie.Rooms ??= new List<Room>();
 
             movie.Rooms.Add(room);
             _unit.Movie.Update(movie);

@@ -23,7 +23,7 @@ namespace Application.Movies.Queries.BrowseMovieLibrary
         public async Task<IEnumerable<MoviesDto>> HandleAsync(BrowseNotIncludedMovies query)
         {
             var movies = await _unit.Movie
-                .GetAllAsync(movie => movie.RoomId != query.RoomId || movie.RoomId == null);
+                .GetAllAsync(movie => !movie.Rooms.Any(r => r.Id == query.RoomId));
 
             return movies?.Select(movie => new MoviesDto
             {

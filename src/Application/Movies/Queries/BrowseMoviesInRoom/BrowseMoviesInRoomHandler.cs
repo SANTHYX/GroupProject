@@ -22,7 +22,7 @@ namespace Application.Movies.Queries.BrowseMoviesInRoom
 
         public async Task<IEnumerable<MovieDto>> HandleAsync(BrowseMoviesInRoom query)
         {
-            var movies = await _unit.Movie.GetAllAsync(movie => movie.RoomId == query.RoomId);
+            var movies = await _unit.Movie.GetAllAsync(movie => movie.Rooms.Any(r => r.Id == query.RoomId));
 
             return movies?.Select(movie => new MovieDto
             {
